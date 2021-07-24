@@ -1,0 +1,408 @@
+{%extends 'dashboard/layout.html'%}
+{% load static %}
+
+{%block content%}
+
+
+  
+
+
+<div class="content-wrapper">
+<div class="content-header">
+		<div class="d-flex align-items-center">
+			<div class="mr-auto w-p50">
+				<h3 class="page-title">CREATE PRODUCT</h3>
+				<div class="d-inline-block align-items-center">
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+							<li class="breadcrumb-item active" aria-current="page">Control</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+			
+    </div>
+  </div>
+
+<section class="content">	
+
+<div class="row">
+		  
+		<div class="col-12">
+         
+         
+            <!-- /.box-header -->
+            <div class="row">			  
+		<div class="col-lg-4 col-12">
+			  <div class="box">
+				<div class="box-header with-border">
+				  <h4 class="box-title">BASIC INFO</h4>			
+					<ul class="box-controls pull-right">
+					 
+					  <li><a class="box-btn-slide" href="#"></a></li>	
+					 
+					</ul>
+				</div>
+				<!-- /.box-header -->
+				<form class="form" method="post" action="{% url 'product:create_products'%}">
+					 {% csrf_token %}
+					<div class="box-body">
+					
+						<div class="row">
+						  <div class="col-md-12">
+				
+							<div class="form-group">
+							  <label >Name</label>
+							  {{form.product_name}}
+							</div>
+						  </div>
+
+						 
+						</div>
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Code</label>
+							{{form.product_code}}
+							</div>
+						  </div>
+                       </div>
+                       <div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Hsn</label>
+							  {{form.product_hsn}}
+							</div>
+						  </div>
+                       </div>
+                       <div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Category</label>
+							  <select required class="form-control select2 cat" width="300" id="cat_id" name="category">
+							<option></option>
+								{% for x in prodx %}<option value="{{x.category_ref}}">{{x.category_ref}}</option>{% endfor %}</select>
+							 
+							  </select>
+							</div>
+						  </div>
+                       </div>
+                         <div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Brand</label>
+						<select required class="form-control select2 brand" width="300" id="brand_id" name="brand">
+							<option></option>
+								{% for x in prodx %}<option value="{{x.brand_ref}}">{{x.brand_ref}}</option>{% endfor %}</select>
+							
+							  </select>
+							</div>
+						  </div>
+                       </div>
+                        <div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Unit type</label>
+							<select required class="form-control select2 unit" width="300" id="unit_id" name="unit">
+							<option></option>
+								{% for x in units %}<option value="{{x.id}}">{{x.product_unit_type}}</option>{% endfor %}</select>
+							
+							  </select> 
+							</div>
+						  </div>
+                       </div>
+                       <div class="row">
+                       	<div class="col-md-6">
+							<div class="form-group">
+							  <label >Stock</label>
+							  {{form.product_stock}}
+							</div>
+						  </div>
+						  <div class="col-md-6">
+							<div class="form-group">
+							  <label >Low stock limit </label>
+							 {{form.product_low_stocklimit}}
+							</div>
+						  </div>
+						</div>
+						
+					
+						 
+							
+									
+		
+					<!-- /.box-body -->
+					</div>  
+          
+			  </div>
+			  
+
+			  <!-- /.box -->			
+		</div>  
+
+		  
+		<div class="col-lg-4 col-12">
+			  <div class="box">
+				<div class="box-header with-border">
+				  <h4 class="box-title">Cost & Price</h4>			
+					<ul class="box-controls pull-right">
+					
+					  <li><a class="box-btn-slide" href="#"></a></li>	
+					
+					</ul>
+				</div>
+				<!-- /.box-header -->
+				<form class="form">
+					<div class="box-body">
+					
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Cost</label>
+							 {{form.product_cost}}
+							</div>
+						  </div>
+						 
+						</div>
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >MRP</label>
+							 {{form.product_price}}
+							</div>
+						  </div>
+						 
+						</div>
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Wholesale Price</label>
+							{{form.product_wholesale_price}}
+							</div>
+						  </div>
+						 
+						</div>
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Tax Category</label>
+							<select required class="form-control select2 tax" width="300" id="product_tax_category_id" name="product_tax_category">
+							<option></option>
+								{% for x in percent %}<option value="{{x}}">{{x}}%</option>{% endfor %}</select>
+						  </div>
+						</div>
+						 
+						</div>
+						<div class="c-inputs-stacked"> 
+								{{form.product_tax_included}}
+								<label for="checkbox_123" class="block">Is tax included</label>
+								{{form.product_expiration}}
+								<label for="checkbox_234" class="block">Is Expired</label>
+								
+							</div>
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Discount</label>
+							  {{form.product_discount}}
+							</div>
+						  </div>
+						 
+						</div>
+
+
+						
+		</div>  
+</div> 
+			  <!-- /.box -->			
+		</div><div class="col-lg-4 col-12" style="display: none;">
+		  <!-- SELECT2 EXAMPLE -->
+		  <div class="box">
+			<div class="box-header with-border">
+			  <h4 class="box-title">Alterntive Unit Price</h4>
+				<ul class="box-controls pull-right">
+				  
+				  <li><a class="box-btn-slide" href="#"></a></li>	
+				</ul>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body pb-0">
+			  <div class="row">
+				<div class="col-md-4 col-12">
+				  <div class="form-group">
+					<label>UNIT</label>
+					<select required class="form-control alternate_units" width="300" id="alter_unit_id" name="alter_units">
+					<option value="0">..........</option>
+					   
+					</select>
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				<!-- /.col -->
+				<div class="col-md-4 col-12">
+				  <div class="form-group">
+					<label>Cost</label>
+					 {{form.product_alter_cost}}
+					</select>
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				<!-- /.col -->
+				<div class="col-md-4 col-12">
+				  <div class="form-group">
+					<label>Price</label>
+					{{form.product_alter_price}}
+					 
+				
+				  </div>
+				  <!-- /.form-group -->
+					
+				</div>
+				<!-- /.col -->
+				
+				<!-- /.col -->
+			  </div>
+			  <!-- /.row -->
+			</div>
+			<!-- /.box-body -->
+		  </div>
+		  <!-- /.box -->
+        </div> 
+		  
+
+            </div>
+<input type="submit" class="btn btn-success" value="Submit">
+            <!-- /.box-body -->
+            </form>
+         </div>
+</div>
+</div>
+ 
+<script src="{% static 'assets/vendor_components/jquery-3.3.1/jquery-3.3.1.js' %}"></script>
+<script src="{% static 'assets/vendor_components/select2/dist/js/select2.full.js' %}"></script>
+
+<script>
+	//category
+
+
+    	$('.cat').select2({
+    		minimumInputLength: 1,
+    		allowClear: true,
+			placeholder:'Category',
+			width:'100%',
+			tags: true,
+    createTag: function (params) {
+
+        var term = $.trim(params.term);
+
+        if (term === '') {
+            return null;
+        }
+        return {
+            id: term,
+            text:'create ' +term ,  // add text....
+            newTag: true // add additional parameters
+        }
+    },
+    insertTag: function (data, tag) {
+    // Insert the tag at the end of the results
+    data.push(tag);
+  }
+}).on('select2:select', function(e) {
+
+    $(this).next('.select2-container').find('.select2-selection__rendered:contains("create ")').text(function(idx, txt) {
+    	
+    	rep=txt.replace('create ', '');
+    	rep=rep.substring(1);
+        return rep;
+    });
+});
+
+
+//brand
+
+
+    	$('.brand').select2({
+    		minimumInputLength: 1,
+    		allowClear: true,
+			placeholder:'Brand',
+			width:'100%',
+		tags: true,
+    createTag: function (params) {
+
+        var term = $.trim(params.term);
+
+        if (term === '') {
+            return null;
+        }
+        return {
+            id: term,
+            text:'create ' +term ,  // add text....
+            newTag: true // add additional parameters
+        }
+    },
+    insertTag: function (data, tag) {
+    // Insert the tag at the end of the results
+    data.push(tag);
+  }
+	}).on('select2:select', function(e) {
+
+    $(this).next('.select2-container').find('.select2-selection__rendered:contains("create ")').text(function(idx, txt) {
+    	
+    	rep=txt.replace('create ', '');
+    	rep=rep.substring(1);
+        return rep;
+    });
+	});
+
+
+//unit   
+
+
+	$('.unit').select2({
+    		
+    		allowClear: true,
+			placeholder:'unit',
+			width:'100%',
+		
+		});
+
+	$('.tax').select2({
+    		minimumInputLength: 1,
+    		allowClear: true,
+			placeholder:'Tax Category',
+			width:'100%',
+		
+		});
+
+
+$(document).on('change','#unit_id',function(e){
+ 
+ 	e.preventDefault();
+ 	$.ajax({
+ 		type:'POST',
+ 		url:'/create_product_ajax/',
+ 		data:{
+ 			action:'selection2',
+ 			selection:$('#unit_id').val(),
+ 			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+ 		},
+ 		dataType: "json",
+ 		success:function(data){
+ 			
+ 			$('.alternate_units').html(data['alter_unit']);
+ 			console.log(data['alter_unit']);
+ 			
+ 			
+ 			
+ 		}
+ 	});
+ });
+
+
+</script>
+
+
+
+   {%endblock%}	

@@ -1,0 +1,2187 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'images/logs.png' %}">
+
+    <title>Maxer Box - Lite</title>
+    
+	<!-- Bootstrap 4.0-->
+	<link rel="stylesheet" href="{% static 'assets/vendor_components/bootstrap/dist/css/bootstrap.css' %}">
+	
+    <!-- c3 CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/vendor_components/c3/c3.min.css' %}">
+	
+	<!-- daterange picker -->	
+	<link rel="stylesheet" href="{% static 'assets/vendor_components/bootstrap-daterangepicker/daterangepicker.css' %}">	
+	
+	<!-- fullCalendar -->
+	<link rel="stylesheet" href="{% static 'assets/vendor_components/fullcalendar/fullcalendar.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/vendor_components/fullcalendar/fullcalendar.print.min.css' %}" media="print">
+	
+	<!-- Bootstrap switch-->
+	<link rel="stylesheet" href="{% static 'assets/vendor_components/bootstrap-switch/switch.css' %}">
+	
+	<!-- Morris charts -->
+	<link rel="stylesheet" href="{% static 'assets/vendor_components/morris.js/morris.css' %}">
+	
+	<!-- Bootstrap extend-->
+	<link rel="stylesheet" href="{% static 'css/bootstrap-extend.css' %}">
+	
+	<!-- Admin main-nav -->
+    <link href="{% static 'css/main-nav.css' %}" rel="stylesheet" />
+	 <link rel="stylesheet" href="{% static 'assets/vendor_components/morris.js/morris.css' %}">
+	<!-- theme style -->
+	<link rel="stylesheet" href="{% static 'css/master_style.css' %}">
+	  <link rel="stylesheet" href="{% static 'assets/vendor_components/select2/dist/css/select2.min.css' %}">
+	  <link rel="stylesheet" href="{% static 'css/floating_icon.css' %}">
+	    <link rel="stylesheet" href="{% static 'assets/vendor_components/sweetalert/sweetalert.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/vendor_components/datatable/datatables.min.css' %}"/>		
+<style type="text/css">
+    .icon-input-btn{
+        display: inline-block;
+        position: relative;
+        float: right;
+        margin-right: 30px;
+    }
+    .icon-input-btn input[type="submit"]{
+        padding-left: 2em;
+
+    }
+    .icon-input-btn .glyphicon{
+        display: inline-block;
+    	position: absolute;
+	    left: 0.95em;
+	    top: 30%;
+	    color: white;
+    }
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".icon-input-btn").each(function(){
+        var btnFont = $(this).find(".btn").css("font-size");
+        var btnColor = $(this).find(".btn").css("color");
+        $(this).find(".glyphicon").css("font-size", btnFont);
+        $(this).find(".glyphicon").css("color", btnColor);
+        if($(this).find(".btn-xs").length){
+            $(this).find(".glyphicon").css("top", "24%");
+        }
+    }); 
+});
+</script>
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+     
+  </head>
+
+<body class="layout-top-nav light-skin theme-fruit">
+	
+<div class="wrapper">
+	
+  <div class="art-bg">
+	  <img src="http://crmx-admin-template.multipurposethemes.com/images/art1.svg" alt="" class="art-img light-img">
+	  <img src="http://crmx-admin-template.multipurposethemes.com/images/art2.svg" alt="" class="art-img dark-img">
+  </div>
+
+  <header class="main-header">
+	  <div class="inside-header">
+		<!-- Logo -->
+		<a href="{% url 'dashboard:indexs'%}" class="logo">
+		  <!-- mini logo -->
+		  <div class="logo-mini">
+			  <span class="light-logo"><img src="{% static 'images/logo-light.png' %}" alt="logo"></span>
+			  <span class="dark-logo"><img src="{% static 'images/logo-dark.png' %}" alt="logo"></span>
+		  </div>
+		  <!-- logo-->
+		  <div class="logo-lg">
+			  <span class="light-logo"><img src="{% static 'images/logo-light-text.png' %}" alt="logo"></span>
+			  <span class="dark-logo"><img src="{% static 'images/logo-dark-text.png' %}" alt="logo"></span>
+		  </div>
+		</a>
+		
+		<!-- Header Navbar -->
+		<nav class="navbar navbar-static-top">
+		  <div>		  
+			  <a id="toggle_res_search" data-toggle="collapse" data-target="#search_form" class="res-only-view" href="javascript:void(0);"><i class="mdi mdi-magnify"></i></a>
+			  <form id="search_form" role="search" class="top-nav-search pull-left collapse ml-20"  method="post" action="{% url 'dashboard:searching_product'%}">
+
+				<div class="input-group">
+					{% csrf_token %}
+					<input type="text" name="searches" class="form-control" placeholder="Search">
+					<span class="input-group-btn">
+					<button type="button" class="btn  btn-default" data-target="#search_form" data-toggle="collapse" aria-label="Close" aria-expanded="true"><i class="mdi mdi-magnify"></i></button>
+					</span>
+				</div>
+			  </form> 
+
+		  </div>
+
+		  <div class="navbar-custom-menu r-side">
+			<ul class="nav navbar-nav">
+			  <!-- full Screen -->
+			  <li class="full-screen-btn">
+				<a href="#" data-provide="fullscreen" title="Full Screen">
+					<i class="mdi mdi-crop-free"></i>
+				</a>
+			  </li>			
+			  <!-- Messages -->
+			  <li class="dropdown messages-menu">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Messages">
+				  <i class="mdi mdi-email"></i>
+				</a>
+				<ul class="dropdown-menu animated bounceIn">
+
+			  <li class="header">
+				<div class="p-20">
+					<div class="flexbox">
+						<div>
+							<h4 class="mb-0 mt-0">Messages</h4>
+						</div>
+						
+					</div>
+				</div>
+			  </li>
+			  <li>
+				<!-- inner menu: contains the actual data -->
+				<ul class="menu sm-scrol">
+				  <li><!-- start message -->
+					<a href="#">
+					 
+					  <div class="mail-contnet">
+						 <h4>
+						  No Mail
+						  
+						 </h4>
+						 <span>You have no mails yet.</span>
+					  </div>
+					</a>
+				  </li>
+				  <!-- end message -->
+				 
+				  <li>
+					
+				</ul>
+			  </li>
+			 
+			</ul>
+			  </li>
+			  <!-- Notifications -->
+			  <li class="dropdown notifications-menu">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Notifications" id="noti_bulb">
+				  <i class="mdi mdi-bell"></i>
+				</a>
+				<ul class="dropdown-menu animated bounceIn">
+
+			  <li class="header">
+				<div class="p-20">
+					<div class="flexbox">
+						<div>
+							<h4 class="mb-0 mt-0">Notifications</h4>
+						</div>
+						<div>
+					<a href="#"  id="clear" class="text-danger"> Clear All</a>
+						</div>
+					</div>
+				</div>
+			  </li>
+
+			  <li>
+				<!-- inner menu: contains the actual data -->
+				<ul class="menu sm-scrol">
+
+				  <li id="notifi">
+
+					<a href="#">
+					
+					</a>
+
+				  </li>
+				 
+				</ul>
+			  </li>
+			  
+			</ul>
+			  </li>	
+
+			  <!-- User Account-->
+			  <li class="dropdown user user-menu">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="User">
+				  <img src="{% static 'images/avatar/7.png' %}" class="user-image rounded-circle" alt="User Image">
+				</a>
+				 <ul class="dropdown-menu animated flipInX">
+              <!-- User image -->
+              <li class="user-header bg-img" style="background-image: url({% static 'images/user-info.jpg' %})" data-overlay="3">
+				  <div class="flexbox align-self-center">					  
+				  	<img src="{% static 'images/avatar/7.png' %}" class="float-left rounded-circle" alt="User Image">					  
+					<h4 class="user-name align-self-center">
+					  <span>{{request.user}}</span>
+            			
+					</h4>
+				  </div>
+              </li>
+              <!-- Menu Body -->
+              <li class="user-body">
+				    <a class="dropdown-item" href="{% url 'dashboard:logout' %}"><i class="ion-log-out"></i> Logout</a>
+					
+              </li>
+            </ul>
+			  </li>	
+
+			  <!-- Control Sidebar Toggle Button -->
+			  <li>
+				<a href="#" data-toggle="control-sidebar" title="Setting"><i class="fa fa-cog fa-spin"></i></a>
+			  </li>
+
+			</ul>
+		  </div>
+		</nav>
+  	  </div>
+  </header>
+  
+  <nav class="main-nav" role="navigation">
+
+	  <!-- Mobile menu toggle button (hamburger/x icon) -->
+	  <input id="main-menu-state" type="checkbox" />
+	  <label class="main-menu-btn" for="main-menu-state">
+		<span class="main-menu-btn-icon"></span> Toggle main menu visibility
+	  </label>
+
+	  <!-- Sample menu definition -->
+	  <ul id="main-menu" class="sm sm-blue">
+		<li><a href="{% url 'dashboard:indexs'%}" class="{% if active_sidebar0 == 1 %}current{% endif %}"><i class="ti-home mx-5"></i>DASHBOARD</a>
+			
+		</li>
+		<li><a href="#" class="{% if active_sidebar1 == 1 %}current{% endif %}"><i class="ti-shopping-cart mx-5"></i>Product</a>
+			<ul>
+				<li><a href="{% url 'product:create_products'%}">Create</a></li>
+            	
+            	<li><a href="{% url 'product:product_details'%}">View</a></li>
+			</ul>
+		</li>
+		<li><a href="{% url 'product:create_barcode'%}" class="{% if active_sidebar2 == 1 %}current{% endif %}"><i class="fa fa-barcode mx-5"></i>Barcode</a>
+			
+		</li>
+		<li><a href="{% url 'product:product_upload'%}"class="{% if active_sidebar3 == 1 %}current{% endif %}"><i class="fa fa-upload mx-5"></i>Upload Product</a>
+			
+		</li>
+		<li><a href="#" class="{% if active_sidebar4 == 1 %}current{% endif %}"><i class="ti-shopping-cart-full mx-5"></i>Sales</a>			
+		 <ul>
+				<li><a href="{% url 'sales:create_sales'%}" target="_blank">Create</a></li>
+            	
+            	<li><a href="{% url 'sales:sales_details'%}">View-Retail</a></li>
+            	<li><a href="{% url 'sales:sales_details_wholesale'%}">View-Wholesale</a></li>
+			</ul>
+		</li>
+		<li><a href="#"class="{% if active_sidebar5 == 1 %}current{% endif %}"><i class="ti-import mx-5"></i>Return</a>			
+		 <ul>
+				<li><a href="{% url 'returns:create_sales_return'%}">Create</a></li>
+            	
+            	<li><a href="{% url 'returns:sales_return'%}">View</a></li>
+			</ul>
+		</li>
+		<li><a href="#"class="{% if active_sidebar6 == 1 %}current{% endif %}"><i class="ti-write mx-5"></i>Report</a>
+		  <ul>
+				
+            	
+            	<li><a href="{% url 'reports:create_monthly_reports'%}">Sales/GST Report</a></li>
+            	<li><a href="{% url 'reports:create_sales_reports'%}">Daily Report</a></li>
+			</ul>
+			</li>
+			
+		<li><a href="{% url 'settings_billing:create_settings'%}"class="{% if active_sidebar7 == 1 %}current{% endif %}"><i class="ti-settings mx-5"></i>Settings</a>
+		 
+			</li>
+		  </ul>		  
+		</li>
+		
+	  </ul>
+	</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!--------------------------------------------------------------------------------------> 
+
+
+<div class="content-wrapper">
+<div class="content-header">
+		<div class="d-flex align-items-center">
+			<div class="mr-auto w-p50">
+				<h3 class="page-title">PRODUCT</h3>
+				<div class="d-inline-block align-items-center">
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+							<li class="breadcrumb-item active" aria-current="page">Control</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+			
+    </div>
+  </div>
+
+<section class="content">	
+<form class="form" method="post" action="{% url 'product:create_products'%}" id="submi">
+					 {% csrf_token %}
+<div class="row">
+		  
+		<div class="col-12" id="fill">
+         
+         
+            <!-- /.box-header -->
+            <div class="row">			  
+		<div class="col-lg-6 col-12">
+			  <div class="box">
+				<div class="box-header with-border">
+				  <h4 class="box-title" id="heading">BASIC INFO</h4>			
+					<ul class="box-controls pull-right">
+					 
+					  <li><a class="box-btn-slide" href="#"></a></li>	
+					 
+					</ul>
+				</div>
+				<!-- /.box-header -->
+				
+					<div class="box-body">
+					
+						<div class="row">
+						  <div class="col-md-12">
+				
+							<div class="form-group">
+							  <label >Name <span class="text-danger">*</span></label>
+							<select required class="form-control select2 prod" width="300" id="prod_id" name="product">
+							<option></option>
+								{% for x in prodx %}<option value="{{x.id}}">{{x.product_name}}</option>{% endfor %}</select>
+							 
+							  </select>
+							</div>
+						  </div>
+
+						 
+						</div><div class="era" id="era1">
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Codes<span class="text-danger">*</span></label>
+							
+							  <input type="text" class="form-control" placeholder="Barcode" id="bar_code_id" name="product_code" required
+       minlength="4" maxlength="8" size="10"> 
+							</div>
+						  </div>
+                       </div>
+                       <div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Hsn<span class="text-danger">*</span></label>
+							  <input type="number" class="form-control" name="product_hsn" value="0">
+							</div>
+						  </div>
+                       </div>
+                       <div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Category</label>
+							  <select class="form-control select2 cat" width="300" id="cat_id" name="category">
+							<option></option>
+								{% for x in repeat_category %}<option value="{{x}}">{{x}}</option>{% endfor %}</select>
+							 
+							  </select>
+							</div>
+						  </div>
+                       </div>
+                         <div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Brand</label>
+						<select class="form-control select2 brand" width="300" id="brand_id" name="brand">
+							<option></option>
+								{% for x in repeat_brand %}<option value="{{x}}">{{x}}</option>{% endfor %}</select>
+							
+							  </select>
+							</div>
+						  </div>
+                       </div>
+                        <div class="row">
+						  <div class="col-md-6" style="display: none;">
+							<div class="form-group">
+							  <label >Unit type<span class="text-danger">*</span></label>
+							<select required class="form-control select2 unit" width="300" id="unit_id" name="unit">
+							<option></option>
+								{% for x in units %}<option value="{{x.id}}">{{x.product_unit_type}}</option>{% endfor %}</select>
+							
+							  </select>
+							 
+							</div>
+						  </div>
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Unit<span class="text-danger">*</span></label>
+							<select required class="form-control alternate_unitsd" width="300" id="alter_unit_id0" name="alter_units">
+					
+					   
+					</select>
+							 
+							</div>
+						  </div>
+                       </div></div>
+                       <div class="row" id="existin_stock" style="display: none;">
+                       	<div class="col-md-6">
+							<div class="form-group">
+							  <label >Existing Stock</label>
+							 <input type="text" class='form-control' value="0" id="stock_id" disabled>
+							</div>
+						  </div>
+						  <div class="col-md-6">
+							<div class="form-group">
+							  <label >Existing Low stock limit</label>
+							 <input type="text" class=form-control value="0" id="low_stock_id" disabled>
+							</div>
+						  </div>
+						</div>
+						
+					<div class="row">
+                       	<div class="col-md-6">
+							<div class="form-group">
+							  <label >Stock<span class="text-danger">*</span></label>
+							  {{form.product_stock}}
+							</div>
+						  </div>
+						  <div class="col-md-6">
+							<div class="form-group">
+							  <label >Low stock limit<span class="text-danger">*</span> </label>
+							 {{form.product_low_stocklimit}}
+							</div>
+						  </div>
+						</div>
+						 
+							
+									
+		
+					<!-- /.box-body -->
+					</div>  
+          
+			  </div>
+			  
+
+			  <!-- /.box -->			
+		</div>  
+
+		<div class="col-lg-6 col-12">
+			<div class="era" id="era3">
+			  <div class="box">
+				<div class="box-header with-border">
+				  <h4 class="box-title">Cost & Price</h4>			
+					<ul class="box-controls pull-right">
+					
+					  <li><a class="box-btn-slide" href="#"></a></li>	
+					
+					</ul>
+				</div>
+				<!-- /.box-header -->
+				<form class="form">
+					<div class="box-body">
+					
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Cost<span class="text-danger">*</span></label>
+							<input type="text" class='form-control' value="0" id="cost_id"> 
+							</div>
+						  </div>
+						 
+						</div>
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >MRP<span class="text-danger">*</span></label>
+							 <input type="text" class='form-control' value='0' id='mrp_id'> 
+							</div>
+						  </div>
+						 
+						</div>
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Wholesale Price<span class="text-danger">*</span></label>
+							<input type="text" class='form-control' value='0' id="wholesale_id"> 
+							</div>
+						  </div>
+						 
+						</div>
+						
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Tax Category</label>
+							 <select required class="form-control select2 tax" width="300" id="product_tax_category_id" name="product_tax_category">
+							<option value="0"></option>
+								{% for x in percent %}<option value="{{x}}">{{x}}%</option>{% endfor %}</select>
+						  </div>
+						</div>
+						 
+						</div>
+						
+								<input type="checkbox" id="checkbox_123">
+								<label for="checkbox_123" class="block">Is tax included</label>
+								<div class="c-inputs-stacked"style="display:none"> 
+								
+								<!-- <label for="checkbox_234" class="block">Is Expired</label> -->
+								
+							</div>
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Discount</label>
+							 <input type="text" class='form-control' value='0' id='discount_id'> 
+							</div>
+						  </div>
+						 
+						</div>
+</div>
+</div>
+							
+</div> 
+			  <!-- /.box -->			
+		</div>
+		<div class="col-lg-4 col-12"><div class="era" id="era3"  style="display: none;">
+		  <!-- SELECT2 EXAMPLE -->
+		  <div class="box">
+			<div class="box-header with-border">
+			  <h4 class="box-title">Alterntive Unit Price</h4>
+				<ul class="box-controls pull-right">
+				  
+				  <li><a class="box-btn-slide" href="#"></a></li>	
+				</ul>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body pb-0" style="text-align: center;">
+			  <div class="row" id="alter_add">
+				
+				<!-- /.col -->
+				
+				<!-- /.col -->
+			  </div><input type="button" class="btn btn-success" id="alter_insert" style="margin:10px;box-shadow: 0px 2px 5px #666;" value="+">
+			  <!-- /.row -->
+			</div>
+			<!-- /.box-body -->
+		  </div>
+		  <!-- /.box -->
+        </div> 
+		  </div>
+
+            </div>
+<input type="submit" class="btn btn-success" value="Submit">
+            <!-- /.box-body -->
+            </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<button type="button" class="btn btn-rounded btn-info btn-sm" data-toggle="modal" data-target="#modal-center" id="launch" style="display: none">
+					Launch demo modal
+				  </button>
+
+			 <div class="modal center-modal fade" id="modal-center" tabindex="-1">
+			  <div class="modal-dialog">
+				<div class="modal-content">
+				  <div class="modal-header">
+					<h5 class="modal-title">Product</h5>
+					<button type="button" class="close" data-dismiss="modal">
+					  <span aria-hidden="true">&times;</span>
+					</button>
+				  </div>
+				
+				  <div class="modal-footer modal-footer-uniform">
+					<button type="button" class="btn btn-primary mb-5"  data-toggle="modal" data-target="#myModal">Update Stock</button>
+					<button type="button" class="btn btn-info mb-5 float-right"  data-toggle="modal" data-target=".bs-example-modal-lg">Edit Product</button>
+				  </div>
+				</div>
+			  </div>
+			</div>
+
+
+
+ <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">Medium model</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				</div>
+				<form class="form" method="post" action="{% url 'product:update_stock' %}" id="stock_update">
+					 {% csrf_token %}
+				<div class="modal-body">
+					 <div class="row" id="existin_stock">
+					 	<div class="col-md-12">
+							<div class="form-group">
+							  <label >Product name</label>
+							 <input type="text" class='form-control' value="0" id="st_pro_name" disabled>
+							 <input type="text" class="form-control" name="st_prod_id" value="" id="pop_proid2" style="display: none;">
+							</div>
+						  </div>
+                       	<div class="col-md-12">
+							<div class="form-group">
+							  <label >Existing Stock</label>
+							 <input type="text" class='form-control' value="0" id="st_existing_stock" disabled>
+							</div>
+						  </div>
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Existing Low stock limit</label>
+							 <input type="text" class=form-control value="0" id="st_existing_low_stock" disabled>
+							</div>
+						  </div>
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >New Stock</label>
+							 <input type="text" class='form-control' value="0" id="st_new_stock" name="st_new_stock">
+							</div>
+						  </div>
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Low stock limit</label>
+							 <input type="text" class='form-control' value="0" id="st_new_low_stock" name="st_new_stock_limit">
+							</div>
+						  </div>
+						</div>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" class="btn btn-success" name="stock" value="Submit">
+					<button type="button" class="btn btn-danger float-right" data-dismiss="modal">Close</button>
+            <!-- /.box-body -->
+            </form>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+
+
+
+
+
+
+<div class="modal fade bs-example-modal-lg"  role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myLargeModalLabel">Edit Product</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				</div>
+				<div class="modal-body">
+					<!---------------------------------------------------------------------------->
+					<form class="form" method="post" action="{% url 'product:update_products' %}" id="submi">
+					 {% csrf_token %}
+<div class="row">
+		  
+		<div class="col-12" id="fill">
+         
+         
+            <!-- /.box-header -->
+            <div class="row">			  
+		<div class="col-lg-6 col-12">
+			  <div class="box">
+				<div class="box-header with-border">
+				  <h4 class="box-title" id="heading">BASIC INFO</h4>			
+					
+				</div>
+				<!-- /.box-header -->
+				
+					<div class="box-body">
+					
+						<div class="row">
+						  <div class="col-md-12">
+				
+							<div class="form-group">
+							  <label >Name <span class="text-danger">*</span></label>
+							<input type="text" class="form-control" name="product2" value="" id="pop_proname">
+							<input type="text" class="form-control" name="prod_id2" value="" id="pop_proid" style="display: none;">
+							</div>
+						  </div>
+
+						 
+						</div><div class="era" id="era1">
+						<!-- <div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Codes<span class="text-danger">*</span></label>
+							
+							  <input type="text" class="form-control" placeholder="Barcode" id="bar_code_id" name="product_code" required
+       minlength="4" maxlength="8" size="10" id="pop_procode"> 
+							</div>
+						  </div>
+                       </div> -->
+                       <div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Hsn<span class="text-danger">*</span></label>
+							  <input type="number" class="form-control" name="product_hsn2" value="0" id="pop_hsn">
+							</div>
+						  </div>
+                       </div>
+                       <div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Category</label>
+							  <select class="form-control select2 cats" width="300" id="pop_cat" name="category2">
+							<option></option>
+								{% for x in repeat_category %}<option value="{{x}}">{{x}}</option>{% endfor %}</select>
+							 
+							  </select>
+							</div>
+						  </div>
+                       </div>
+                         <div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Brand</label>
+						<select class="form-control select2 brands" width="300" id="pop_brand" name="brand2">
+							<option></option>
+								{% for x in repeat_brand %}<option value="{{x}}">{{x}}</option>{% endfor %}</select>
+							
+							  </select>
+							</div>
+						  </div>
+                       </div>
+                        <div class="row">
+						  <div class="col-md-6"  style="display: none;">
+							<div class="form-group">
+							  <label >Unit type<span class="text-danger">*</span></label>
+							<select required class="form-control select2 units" width="300" id="pop_unit" name="unit2">
+							<option></option>
+								{% for x in units %}<option value="{{x.id}}">{{x.product_unit_type}}</option>{% endfor %}</select>
+							
+							  </select>
+							 
+							</div>
+						  </div>
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Unit<span class="text-danger">*</span></label>
+							<select required class="form-control alternate_unitsd" width="300" id="pop_alter_unit_id0" name="alter_units2">
+					
+					   
+					</select>
+							 
+							</div>
+						  </div>
+                       </div></div>
+                       <div class="row" id="existin_stock" style="display: none;">
+                       	<div class="col-md-6">
+							<div class="form-group">
+							  <label >Existing Stock</label>
+							 <input type="text" class='form-control' value="0" id="stock_id" disabled>
+							</div>
+						  </div>
+						  <div class="col-md-6">
+							<div class="form-group">
+							  <label >Existing Low stock limit</label>
+							 <input type="text" class=form-control value="0" id="low_stock_id" disabled>
+							</div>
+						  </div>
+						</div>
+						
+					
+						 
+							
+									
+		
+					<!-- /.box-body -->
+					</div>  
+          
+			  </div>
+			  
+
+			  <!-- /.box -->			
+		</div>  
+
+		<div class="col-lg-6 col-12">
+			<div class="era" id="era3">
+			  <div class="box">
+				<div class="box-header with-border">
+				  <h4 class="box-title">Cost & Price</h4>			
+					
+				</div>
+				<!-- /.box-header -->
+				<form class="form">
+					<div class="box-body">
+					
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Cost<span class="text-danger">*</span></label>
+							<input type="text" class='form-control' value="0" id="pop_cost" name="product_cost2"> 
+							</div>
+						  </div>
+						 
+						</div>
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >MRP<span class="text-danger">*</span></label>
+							 <input type="text" class='form-control' value='0' id='pop_mrp' name="product_price2"> 
+							</div>
+						  </div>
+						 
+						</div>
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Wholesale Price<span class="text-danger">*</span></label>
+							<input type="text" class='form-control' value='0' id="pop_wholesale" name="product_wholesale_price2"> 
+							</div>
+						  </div>
+						 
+						</div>
+						
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Tax Category</label>
+							 <select required class="form-control select2 taxs" width="300" id="pop_taxcategory" name="product_tax_category2">
+							<option value="0"></option>
+								{% for x in percent %}<option value="{{x}}">{{x}}%</option>{% endfor %}</select>
+						  </div>
+						</div>
+						 
+						</div>
+						
+								<input type="checkbox" id="checkbox_12" value="True" name="taxes_stat2">
+								<label for="checkbox_12" class="block">Is tax included</label>
+								<div class="c-inputs-stacked"style="display:none"> 
+								
+								<!-- <label for="checkbox_234" class="block">Is Expired</label> -->
+								
+							</div>
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Discount</label>
+							 <input type="text" class='form-control' value='0' id='pop_discount' name="product_discount2"> 
+							</div>
+						  </div>
+						 
+						</div>
+</div>
+</div>
+							
+</div> 
+			  <!-- /.box -->			
+		</div>
+		<div class="col-lg-4 col-12"><div class="era" id="era3"  style="display: none;">
+		  <!-- SELECT2 EXAMPLE -->
+		  <div class="box">
+			<div class="box-header with-border">
+			  <h4 class="box-title">Alterntive Unit Price</h4>
+				
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body pb-0" style="text-align: center;">
+			  <div class="row" id="alter_add1">
+				<input type="hidden" class="form-control" name="product_code" value="0" required id="pro_code">
+				<input type="hidden" class="form-control" name="product_code_pnr" value="0" required id="pro_code_pnrd">
+				<!-- <input type="hidden" value="'+count+'" id="counts" style="width: 0%;" name="counting">  -->
+				<input type="hidden" name="selec_uni" id="selec_uni">
+				
+				<!-- /.col -->
+			  </div><input type="button" class="btn btn-success" id="alter_insert1" style="margin:10px;box-shadow: 0px 2px 5px #666;" value="+">
+			  <!-- /.row -->
+			</div>
+			<!-- /.box-body -->
+		  </div>
+		  <!-- /.box -->
+        </div> 
+		  </div>
+
+            </div>
+<input type="submit" class="btn btn-success" name="edit" value="Submit">
+<button type="button" class="btn btn-danger float-right" data-dismiss="modal">Close</button>
+            <!-- /.box-body -->
+            </form>
+            <!-------------------------------------------------------------------------------------->
+				</div>
+				
+					
+				
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         </div>
+</div>
+</div>
+ 
+<script src="{% static 'assets/vendor_components/jquery-3.3.1/jquery-3.3.1.js' %}"></script>
+<script src="{% static 'assets/vendor_components/select2/dist/js/select2.full.js' %}"></script>
+
+<script>
+	//category
+
+
+$('.prod').select2({
+    		minimumInputLength: 1,
+    		allowClear: true,
+			placeholder:'Product',
+			width:'100%',
+			tags: true,
+    createTag: function (params) {
+
+        var term = $.trim(params.term);
+
+        if (term === '') {
+            return null;
+        }
+        return {
+            id: term,
+            text:'create ' +term ,  // add text....
+            newTag: true // add additional parameters
+        }
+    },
+    insertTag: function (data, tag) {
+    // Insert the tag at the end of the results
+    data.push(tag);
+  }
+}).on('select2:select', function(e) {
+console.log($('#prod_id').val())
+    $(this).next('.select2-container').find('.select2-selection__rendered:contains("create ")').text(function(idx, txt) {
+    	
+    	rep=txt.replace('create ', '');
+    	rep=rep.substring(1);
+        return rep;
+    });
+});
+
+
+
+
+    	$('.cat').select2({
+    		minimumInputLength: 1,
+    		allowClear: true,
+			placeholder:'Category',
+			width:'100%',
+			tags: true,
+    createTag: function (params) {
+
+        var term = $.trim(params.term);
+
+        if (term === '') {
+            return null;
+        }
+        return {
+            id: term,
+            text:'create ' +term ,  // add text....
+            newTag: true // add additional parameters
+        }
+    },
+    insertTag: function (data, tag) {
+    // Insert the tag at the end of the results
+    data.push(tag);
+  }
+}).on('select2:select', function(e) {
+
+    $(this).next('.select2-container').find('.select2-selection__rendered:contains("create ")').text(function(idx, txt) {
+    	
+    	rep=txt.replace('create ', '');
+    	rep=rep.substring(1);
+        return rep;
+    });
+});
+
+
+//brand
+
+
+    	$('.brand').select2({
+    		minimumInputLength: 1,
+    		allowClear: true,
+			placeholder:'Brand',
+			width:'100%',
+		tags: true,
+    createTag: function (params) {
+
+        var term = $.trim(params.term);
+
+        if (term === '') {
+            return null;
+        }
+        return {
+            id: term,
+            text:'create ' +term ,  // add text....
+            newTag: true // add additional parameters
+        }
+    },
+    insertTag: function (data, tag) {
+    // Insert the tag at the end of the results
+    data.push(tag);
+  }
+	}).on('select2:select', function(e) {
+
+    $(this).next('.select2-container').find('.select2-selection__rendered:contains("create ")').text(function(idx, txt) {
+    	
+    	rep=txt.replace('create ', '');
+    	rep=rep.substring(1);
+        return rep;
+    });
+	});
+
+
+//unit   
+
+
+	$('.unit').select2({
+    		
+    		allowClear: true,
+			placeholder:'unit',
+			width:'100%',
+		
+		});
+
+	$('.tax').select2({
+    		minimumInputLength: 1,
+    		allowClear: true,
+			placeholder:'Tax Category',
+			width:'100%',
+		
+		});
+
+
+$(document).on('change','#unit_id',function(e){
+ 
+ 	e.preventDefault();
+ 	$.ajax({
+ 		type:'POST',
+ 		url:'/create_product_ajax/',
+ 		data:{
+ 			action:'selection2',
+ 			selection:$('#unit_id').val(),
+ 			excl_unit:$('#alter_unit_id0').val(),
+ 			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+ 		},
+ 		dataType: "json",
+ 		success:function(data){
+ 			
+ 			$('.alternate_units').html(data['alter_unit']);
+ 			$('.alternate_unitsd').html(data['alter_unitd']);
+ 		
+
+ 			
+ 			
+ 		}
+ 	});
+ });
+
+$(document).on('change','#alter_unit_id0',function(e){
+ 
+ 	e.preventDefault();
+ 	$.ajax({
+ 		type:'POST',
+ 		url:'/create_product_ajax/',
+ 		data:{
+ 			action:'selection2',
+ 			selection:$('#unit_id').val(),
+ 			excl_unit:$('#alter_unit_id0').val(),
+ 			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+ 		},
+ 		dataType: "json",
+ 		success:function(data){
+ 			
+ 			$('.alternate_units').html(data['alter_unit']);
+ 		
+ 			
+ 			
+ 			
+ 			
+ 		}
+ 	});
+ });
+
+var count=0
+$(document).on('change','#prod_id',function(e){
+	
+ if (isNaN( $("#prod_id").val() )) {
+				     $('#fill').html('<!-- /.box-header --><div class="row">			  <div class="col-lg-6 col-12"><div class="box"><div class="box-header with-border"><h4 class="box-title">BASIC INFO</h4>			<ul class="box-controls pull-right"><li><a class="box-btn-slide" href="#"></a></li>	</ul></div><!-- /.box-header --><div class="box-body"><div class="row"><div class="col-md-12"><div class="form-group"><label >Name<span class="text-danger">*</span></label><input type="text" class="form-control" name="product" value="'+$('#prod_id').val()+'"></div></div></div><div class="era" id="era1"><div class="row"><div class="col-md-12"><div class="form-group"><label >Code<span class="text-danger">*</span></label><input type="text" class="form-control" name="" value="0" required disabled id="pro_code_pnr"></div></div></div><div class="row"><div class="col-md-12"><div class="form-group"><label >Hsn<span class="text-danger">*</span></label><input type="number" class="form-control" name="product_hsn" value="0"required ></div></div></div><div class="row"><div class="col-md-12"><div class="form-group"><label >Category</label><select class="form-control select2 cat" width="300" id="cat_id" name="category"><option></option>{% for x in repeat_category %}<option value="{{x}}">{{x}}</option>{% endfor %}</select></select></div></div></div><div class="row"><div class="col-md-12"><div class="form-group"><label >Brand</label><select class="form-control select2 brand" width="300" id="brand_id" name="brand"><option></option>{% for x in repeat_brand %}<option value="{{x}}">{{x}}</option>{% endfor %}</select></select></div></div></div><div class="row"><div class="col-md-6"  style="display: none;"><div class="form-group"><label >Unit type<span class="text-danger">*</span></label><select required class="form-control select2 unit" width="300" id="unit_id" name="unit">{% for x in units %}<option value="{{x.id}}">{{x.product_unit_type}}</option>{% endfor %}</select></select></div></div><div class="col-md-12"><div class="form-group"><label >Unit<span class="text-danger">*</span></label><select required class="form-control alternate_unitsd" width="300" id="alter_unit_id0" name="alter_units"></select></div></div></div></div><div class="row"><div class="col-md-6"><div class="form-group"><label >Stock<span class="text-danger">*</span></label><input type="text" class="form-control" value="0" id="stock_id" name="product_stock"></div></div><div class="col-md-6"><div class="form-group"><label >Low stock limit<span class="text-danger">*</span> </label><input type="text" class=form-control value="0" id="low_stock_id" name="product_low_stocklimit"></div></div></div><!-- /.box-body --></div>  </div><!-- /.box -->			</div>  <div class="col-lg-6 col-12"  class="era"><div class="box"><div class="box-header with-border"><h4 class="box-title">Cost & Price</h4>			<ul class="box-controls pull-right"><li><a class="box-btn-slide" href="#"></a></li>	</ul></div><!-- /.box-header --><form class="form"><div class="box-body"><div class="row"><div class="col-md-12"><div class="form-group"><label >Cost<span class="text-danger">*</span></label><input type="text" class="form-control" value="0" id="cost_id" name="product_cost"> </div></div></div><div class="row"><div class="col-md-12"><div class="form-group"><label >MRP<span class="text-danger">*</span></label><input type="text" class="form-control" value="0" id="mrp_id" name="product_price"> </div></div></div><div class="row"><div class="col-md-12"><div class="form-group"><label >Wholesale Price<span class="text-danger">*</span></label><input type="text" class="form-control" value="0" id="wholesale_id" name="product_wholesale_price"> </div></div></div><div class="era" id="era2"><div class="row"><div class="col-md-12"><div class="form-group"><label >Tax Category</label><select required class="form-control select2 tax" width="300" id="product_tax_category_id" name="product_tax_category"><option value="0"></option>{% for x in percent %}<option value="{{x}}">{{x}}%</option>{% endfor %}</select></div></div></div><input type="checkbox" id="checkbox_123" value="True" name="taxes_stat"><label for="checkbox_123" class="block">Is tax included</label><div class="c-inputs-stacked"style="display:none"><label for="checkbox_234" class="block">Is Expired</label></div><div class="row"><div class="col-md-12"><div class="form-group"><label >Discount<span class="text-danger">*</span></label><input type="text" class="form-control" value="0" id="discount_id" name="product_discount"> </div></div></div></div>  </div> <!-- /.box --></div></div><div class="col-lg-4 col-12"><div class="era" id="era3"  style="display: none;"><!-- SELECT2 EXAMPLE --><div class="box"><div class="box-header with-border"><h4 class="box-title">Alterntive Unit Price</h4><ul class="box-controls pull-right"><li><a class="box-btn-slide" href="#"></a></li>	</ul></div><!-- /.box-header --><div class="box-body pb-0" style="text-align: center;"><div class="row" id="alter_add"><input type="hidden" class="form-control" name="product_code" value="0" required id="pro_code"><input type="hidden" class="form-control" name="product_code_pnr" value="0" required id="pro_code_pnrd"><input type="hidden" value="'+count+'" id="counts" style="width: 0%;" name="counting"> <input type="hidden" name="selec_uni" id="selec_uni"></div><!-- /.form-group --><input type="button" class="btn btn-success" id="alter_insert" style="margin:10px;box-shadow: 0px 2px 5px #666;" value="+"><!-- /.row --></div><!-- /.box-body --></div><!-- /.box --></div> </div></div><input type="submit" class="btn btn-success" value="Submit"><!-- /.box-body --></form></div>')
+
+
+$.ajax({
+ 		
+ 		type:'POST',
+ 		url:'/generate_code_ajax/',
+ 		data:{
+ 			
+ 			
+ 			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+ 		},
+ 		dataType: "json",
+ 		success:function(data){
+ 			
+ 			$('#pro_code').val(data['int_ran']);
+ 			$('#pro_code_pnr').val(data['ran']);
+ 			$('#pro_code_pnrd').val(data['ran'])
+ 			
+ 			$('#unit_id').val(1).trigger('change');
+ 			
+ 		}
+ 	});
+
+
+
+
+
+
+
+											$('.cat').select2({
+						    		minimumInputLength: 1,
+						    		allowClear: true,
+									placeholder:'Category',
+									width:'100%',
+									tags: true,
+						    createTag: function (params) {
+
+						        var term = $.trim(params.term);
+
+						        if (term === '') {
+						            return null;
+						        }
+						        return {
+						            id: term,
+						            text:'create ' +term ,  // add text....
+						            newTag: true // add additional parameters
+						        }
+						    },
+						    insertTag: function (data, tag) {
+						    // Insert the tag at the end of the results
+						    data.push(tag);
+						  }
+						}).on('select2:select', function(e) {
+
+						    $(this).next('.select2-container').find('.select2-selection__rendered:contains("create ")').text(function(idx, txt) {
+						    	
+						    	rep=txt.replace('create ', '');
+						    	rep=rep.substring(1);
+						        return rep;
+						    });
+						});
+
+
+						//brand
+
+
+						    	$('.brand').select2({
+						    		minimumInputLength: 1,
+						    		allowClear: true,
+									placeholder:'Brand',
+									width:'100%',
+								tags: true,
+						    createTag: function (params) {
+
+						        var term = $.trim(params.term);
+
+						        if (term === '') {
+						            return null;
+						        }
+						        return {
+						            id: term,
+						            text:'create ' +term ,  // add text....
+						            newTag: true // add additional parameters
+						        }
+						    },
+						    insertTag: function (data, tag) {
+						    // Insert the tag at the end of the results
+						    data.push(tag);
+						  }
+							}).on('select2:select', function(e) {
+
+						    $(this).next('.select2-container').find('.select2-selection__rendered:contains("create ")').text(function(idx, txt) {
+						    	
+						    	rep=txt.replace('create ', '');
+						    	rep=rep.substring(1);
+						        return rep;
+						    });
+							});
+
+
+					$('.unit').select2({
+    		
+				    		allowClear: true,
+							placeholder:'unit',
+							width:'100%',
+						
+						});
+					
+
+					$('.tax').select2({
+				    		minimumInputLength: 1,
+				    		allowClear: true,
+							placeholder:'Tax Category',
+							width:'100%',
+						
+						});
+	$(document).on('change','#unit_id',function(e){
+ 
+ 	e.preventDefault();
+ 	$.ajax({
+ 		type:'POST',
+ 		url:'/create_product_ajax/',
+ 		data:{
+ 			action:'selection2',
+ 			selection:$('#unit_id').val(),
+ 			excl_unit:$('#alter_unit_id0').val(),
+ 			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+ 		},
+ 		dataType: "json",
+ 		success:function(data){
+ 			
+ 			$('.alternate_units').html(data['alter_unit']);
+ 			$('.alternate_unitsd').html(data['alter_unitd']);
+ 	$.ajax({
+ 		type:'POST',
+ 		url:'/create_product_ajax/',
+ 		data:{
+ 			action:'selection2',
+ 			selection:$('#unit_id').val(),
+ 			excl_unit:$('#alter_unit_id0').val(),
+ 			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+ 		},
+ 		dataType: "json",
+ 		success:function(data){
+ 			
+ 			$('.alternate_units').html(data['alter_unit']);
+ 		
+ 			
+ 			
+ 			
+ 			
+ 		}
+ 	});
+ 			
+ 		}
+ 	});
+
+
+
+ });
+
+
+
+
+
+	} else {
+
+
+
+
+
+			$('#launch').trigger('click');	
+
+
+											$('.cats').select2({
+						    		minimumInputLength: 1,
+						    		allowClear: true,
+									placeholder:'Category',
+									width:'100%',
+									tags: true,
+						    createTag: function (params) {
+
+						        var term = $.trim(params.term);
+
+						        if (term === '') {
+						            return null;
+						        }
+						        return {
+						            id: term,
+						            text:'create ' +term ,  // add text....
+						            newTag: true // add additional parameters
+						        }
+						    },
+						    insertTag: function (data, tag) {
+						    // Insert the tag at the end of the results
+						    data.push(tag);
+						  }
+						}).on('select2:select', function(e) {
+
+						    $(this).next('.select2-container').find('.select2-selection__rendered:contains("create ")').text(function(idx, txt) {
+						    	
+						    	rep=txt.replace('create ', '');
+						    	rep=rep.substring(1);
+						        return rep;
+						    });
+						});
+
+
+						//brand
+
+
+						    	$('.brands').select2({
+						    		minimumInputLength: 1,
+						    		allowClear: true,
+									placeholder:'Brand',
+									width:'100%',
+								tags: true,
+						    createTag: function (params) {
+
+						        var term = $.trim(params.term);
+
+						        if (term === '') {
+						            return null;
+						        }
+						        return {
+						            id: term,
+						            text:'create ' +term ,  // add text....
+						            newTag: true // add additional parameters
+						        }
+						    },
+						    insertTag: function (data, tag) {
+						    // Insert the tag at the end of the results
+						    data.push(tag);
+						  }
+							}).on('select2:select', function(e) {
+
+						    $(this).next('.select2-container').find('.select2-selection__rendered:contains("create ")').text(function(idx, txt) {
+						    	
+						    	rep=txt.replace('create ', '');
+						    	rep=rep.substring(1);
+						        return rep;
+						    });
+							});
+
+
+
+					
+
+					$('.taxs').select2({
+				    		minimumInputLength: 1,
+				    		allowClear: true,
+							placeholder:'Tax Category',
+							width:'100%',
+						
+						});
+
+
+ 	e.preventDefault();
+
+ 	$.ajax({
+ 		type:'POST',
+ 		url:'/update_product_ajax/',
+ 		data:{
+ 			action:'selected',
+ 			selection:$('#prod_id').val(),
+ 			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+ 		},
+ 		dataType: "json",
+ 		success:function(data){
+ 			$('#pop_proname').val(data['prod_name'])
+ 			$('#st_pro_name').val(data['prod_name'])
+ 			$('#pop_proid').val(data['pro_id'])
+ 			$('#pop_proid2').val(data['pro_id'])
+ 			$('#pop_hsn').val(data['prod_hsn'])
+
+ 			$('#pop_cat').val(data['prod_categor']).trigger("change")
+ 			$('#pop_brand').val(data['prod_brand']).trigger("change")
+ 			$('#pop_unit').val(data['prod_unit']).trigger("change")
+ 			$('#st_existing_stock').val(data['prod_stock'])
+ 			$('#st_existing_low_stock').val(data['prod_stock_limit'])
+ 			$('#st_new_low_stock').val(data['prod_stock_limit'])
+ 			$('#pop_cost').val(data['prod_cost'])
+ 			$('#pop_mrp').val(data['prod_mrp'])
+ 			$('#pop_wholesale').val(data['prod_wholesale'])
+ 			$('#pop_taxcategory').val(data['prod_tax']).trigger("change")
+ 			$('#pop_discount').val(data['prod_disc'])
+ 			// $('.era').html('')
+ 			// $('#heading').html('UPDATE STOCK')
+ 			// $("#existin_stock").show();
+ 			$("#alter_add1").append(data['tag_str'])
+ 			$('#pop_alter_unit_id0').val(data['prod_unit_id']).trigger("change")
+ 				
+ 		}
+
+ 	});
+ 	  
+
+				}
+
+ 			
+ });
+$('#unit_id').val(1).trigger('change');
+
+$("#submi").submit(function(e) {
+var form = this;
+    e.preventDefault();
+    setTimeout(function () {
+        form.submit();
+    }, 550);
+
+   swal ( "Success" ,  "Product Created succesfull!" ,  "success" )
+ }); 
+
+
+// var count=0  
+// $(document).on('click','#alter_insert',function(e){
+
+// 	count=count+1
+// $("#alter_add").append('<div class="col-md-4 col-12"><div class="form-group"><label>UNIT</label><select required class="form-control alternate_units" width="300" id="alter_unit_id'+count+'" name="alter_units'+count+'"><option value="0">..........</option></select></div><!-- /.form-group --></div><!-- /.col --><div class="col-md-4 col-12"><div class="form-group"><label>Cost</label><input type="number" class="form-control" name="product_alter_cost'+count+'" value="0"></select></div><!-- /.form-group --></div><!-- /.col --><div class="col-md-4 col-12"><div class="form-group"><label>Price</label><input type="number" class="form-control" name="product_alter_price'+count+'" value="0"></div><!-- /.form-group --><input type="hidden" value="'+count+'" id="counts" style="width: 0%;" name="counting"></div>');
+
+// $.ajax({
+//  		type:'POST',
+//  		url:'/create_product_ajax/',
+//  		data:{
+//  			action:'selection3',
+//  			selection:$('#unit_id').val(),
+//  			unit_alter:$('#alter_unit_id0').val(),
+//  			sele_alter:$('#selec_uni').val(),
+//  			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+//  		},
+//  		dataType: "json",
+//  		success:function(data){
+ 			
+//  			// $('.alternate_units').html(data['alter_unit']);
+//  		console.log(data['alter_unit']);
+//  			var alter_unit_id="#alter_unit_id".concat(count);
+//             $(alter_unit_id).html(data['alter_unit']);
+ 			
+ 			
+ 			
+//  		}
+//  	});
+// })
+// $(document).on('click','#alter_insert1',function(e){
+// 	count=count+1
+// 	$("#alter_add1").append('<div class="col-md-4 col-12"><div class="form-group"><label>UNIT</label><select required class="form-control alternate_units" width="300" id="alter_unit_id'+count+'" name="alter_units'+count+'"><option value="0">..........</option></select></div><!-- /.form-group --></div><!-- /.col --><div class="col-md-4 col-12"><div class="form-group"><label>Cost</label><input type="number" class="form-control" name="product_alter_cost'+count+'" value="0"></select></div><!-- /.form-group --></div><!-- /.col --><div class="col-md-4 col-12"><div class="form-group"><label>Price</label><input type="number" class="form-control" name="product_alter_price'+count+'" value="0"></div><!-- /.form-group --><input type="hidden" value="'+count+'" id="counts" style="width: 0%;" name="counting"></div>')
+
+// $.ajax({
+//  		type:'POST',
+//  		url:'/create_product_ajax/',
+//  		data:{
+//  			action:'selection3',
+//  			selection:$('#pop_unit').val(),
+//  			unit_alter:$('#alter_unit_id0').val(),
+//  			sele_alter:$('#selec_uni').val(),
+//  			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+//  		},
+//  		dataType: "json",
+//  		success:function(data){
+ 			
+//  			// $('.alternate_units').html(data['alter_unit']);
+//  		console.log(data['alter_unit']);
+//  			var alter_unit_id="#alter_unit_id".concat(count);
+//             $(alter_unit_id).html(data['alter_unit']);
+ 			
+ 			
+ 			
+//  		}
+//  	});
+
+// });
+
+// $(document).on('change','#alter_unit_id',function(e){
+// $('#selec_uni').val($('#selec_uni').val()+$('#alter_unit_id').val());
+// });
+
+// $(document).on('change','#alter_unit_id1',function(e){
+// $('#selec_uni').val($('#selec_uni').val()+$('#alter_unit_id1').val());
+// });
+// $(document).on('change','#alter_unit_id2',function(e){
+// $('#selec_uni').val($('#selec_uni').val()+$('#alter_unit_id2').val());
+// });
+// $(document).on('change','#alter_unit_id3',function(e){
+// $('#selec_uni').val($('#selec_uni').val()+$('#alter_unit_id3').val());
+// });
+// $(document).on('change','#alter_unit_id4',function(e){
+// $('#selec_uni').val($('#selec_uni').val()+$('#alter_unit_id4').val());
+// });
+// $(document).on('change','#alter_unit_id5',function(e){
+// $('#selec_uni').val($('#selec_uni').val()+$('#alter_unit_id5').val());
+// });
+
+
+
+
+</script>
+
+<!-------------------------------------------------------------------------------------------------------------------------->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="main-footer">
+    <div class="pull-right d-none d-sm-inline-block">
+        <ul class="nav nav-primary nav-dotted nav-dot-separated justify-content-center justify-content-md-end">
+		 
+		  <li class="nav-item">
+			<a class="nav-link" href="#">POS software</a>
+		  </li>
+		</ul>
+    </div>
+    <div id="container-floating">
+
+  
+ 
+  
+  
+ 
+  
+
+   
+  <div class="nd8 nds" data-toggle="tooltip" data-placement="left" ><img class="reminder"><a href="{% url 'product:create_products' %}">
+    <p class="letter">Product <i class="mdi mdi-apps"></i></p></a>
+  </div>
+   <div class="nd7 nds" data-toggle="tooltip" data-placement="left" ><img class="reminder"><a href="{% url 'sales:create_sales' %}" target="_blank">
+    <p class="letter">Sale <i class="mdi mdi-apps"></i></p></a>
+  </div>
+  <div class="nd6 nds" data-toggle="tooltip" data-placement="left" ><img class="reminder"><a href="{% url 'returns:create_sales_return' %}">
+    <p class="letter">Return <i class="mdi mdi-shopping"></i></p></a>
+  </div>
+  <div class="nd4 nds" data-toggle="tooltip" data-placement="left" ><img class="reminder"><a href="{% url 'reports:create_sales_reports' %}">
+    <p class="letter">Report <i class="mdi mdi-account-multiple"></i></p></a>
+  </div>
+ 
+
+  <div id="floating-button" data-toggle="tooltip" data-placement="left" onclick="">
+    <p class="plus">+</p>
+    <img class="edit" src="{% static 'images/bt_compose2_1x.png' %}">
+
+  </div>
+
+</div>
+	MaxerBOX-Lite
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar">
+	  
+	<div class="rpanel-title"><span class="btn pull-right"><i class="ion ion-close" data-toggle="control-sidebar"></i></span> </div>    <!-- Create the tabs -->
+   
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <!-- Home tab content -->
+      <div class="tab-pane" id="control-sidebar-home-tab">
+          <div class="flexbox">
+			<a href="javascript:void(0)" class="text-grey">
+				<i class="ti-more"></i>
+			</a>	
+			<p>Users</p>
+			<a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+		  </div>
+		  <div class="lookup lookup-sm lookup-right d-none d-lg-block">
+			<input type="text" name="s" placeholder="Search" class="w-p100">
+		  </div>
+          <div class="media-list media-list-hover mt-20">
+			<div class="media py-10 px-0">
+			  <a class="avatar avatar-lg status-success" href="#">
+				<img src="../images/avatar/1.jpg" alt="...">
+			  </a>
+			  <div class="media-body">
+				<p class="font-size-16">
+				  <a class="hover-primary" href="#"><strong>Tyler</strong></a>
+				</p>
+				<p>Praesent tristique diam...</p>
+				  <span>Just now</span>
+			  </div>
+			</div>
+
+			<div class="media py-10 px-0">
+			  <a class="avatar avatar-lg status-danger" href="#">
+				<img src="../images/avatar/2.jpg" alt="...">
+			  </a>
+			  <div class="media-body">
+				<p class="font-size-16">
+				  <a class="hover-primary" href="#"><strong>Luke</strong></a>
+				</p>
+				<p>Cras tempor diam ...</p>
+				  <span>33 min ago</span>
+			  </div>
+			</div>
+
+			<div class="media py-10 px-0">
+			  <a class="avatar avatar-lg status-warning" href="#">
+				<img src="../images/avatar/3.jpg" alt="...">
+			  </a>
+			  <div class="media-body">
+				<p class="font-size-16">
+				  <a class="hover-primary" href="#"><strong>Evan</strong></a>
+				</p>
+				<p>In posuere tortor vel...</p>
+				  <span>42 min ago</span>
+			  </div>
+			</div>
+
+			<div class="media py-10 px-0">
+			  <a class="avatar avatar-lg status-primary" href="#">
+				<img src="../images/avatar/4.jpg" alt="...">
+			  </a>
+			  <div class="media-body">
+				<p class="font-size-16">
+				  <a class="hover-primary" href="#"><strong>Evan</strong></a>
+				</p>
+				<p>In posuere tortor vel...</p>
+				  <span>42 min ago</span>
+			  </div>
+			</div>			
+			
+			<div class="media py-10 px-0">
+			  <a class="avatar avatar-lg status-success" href="#">
+				<img src="../images/avatar/1.jpg" alt="...">
+			  </a>
+			  <div class="media-body">
+				<p class="font-size-16">
+				  <a class="hover-primary" href="#"><strong>Tyler</strong></a>
+				</p>
+				<p>Praesent tristique diam...</p>
+				  <span>Just now</span>
+			  </div>
+			</div>
+
+			<div class="media py-10 px-0">
+			  <a class="avatar avatar-lg status-danger" href="#">
+				<img src="../images/avatar/2.jpg" alt="...">
+			  </a>
+			  <div class="media-body">
+				<p class="font-size-16">
+				  <a class="hover-primary" href="#"><strong>Luke</strong></a>
+				</p>
+				<p>Cras tempor diam ...</p>
+				  <span>33 min ago</span>
+			  </div>
+			</div>
+
+			<div class="media py-10 px-0">
+			  <a class="avatar avatar-lg status-warning" href="#">
+				<img src="../images/avatar/3.jpg" alt="...">
+			  </a>
+			  <div class="media-body">
+				<p class="font-size-16">
+				  <a class="hover-primary" href="#"><strong>Evan</strong></a>
+				</p>
+				<p>In posuere tortor vel...</p>
+				  <span>42 min ago</span>
+			  </div>
+			</div>
+
+			<div class="media py-10 px-0">
+			  <a class="avatar avatar-lg status-primary" href="#">
+				<img src="../images/avatar/4.jpg" alt="...">
+			  </a>
+			  <div class="media-body">
+				<p class="font-size-16">
+				  <a class="hover-primary" href="#"><strong>Evan</strong></a>
+				</p>
+				<p>In posuere tortor vel...</p>
+				  <span>42 min ago</span>
+			  </div>
+			</div>
+			  
+		  </div>
+
+      </div>
+      <!-- /.tab-pane -->
+      <!-- Settings tab content -->
+      <div class="tab-pane" id="control-sidebar-settings-tab">
+          <div class="flexbox">
+			<a href="javascript:void(0)" class="text-grey">
+				<i class="ti-more"></i>
+			</a>	
+			<p>Todo List</p>
+			<a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+		  </div>
+        <ul class="todo-list mt-20">
+			<li class="py-15 px-5 by-1">
+			  <!-- checkbox -->
+			  <input type="checkbox" id="basic_checkbox_1" class="filled-in">
+			  <label for="basic_checkbox_1" class="mb-0 h-15"></label>
+			  <!-- todo text -->
+			  <span class="text-line">Nulla vitae purus</span>
+			  <!-- Emphasis label -->
+			  <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+			  <!-- General tools such as edit or delete-->
+			  <div class="tools">
+				<i class="fa fa-edit"></i>
+				<i class="fa fa-trash-o"></i>
+			  </div>
+			</li>
+			<li class="py-15 px-5">
+			  <!-- checkbox -->
+			  <input type="checkbox" id="basic_checkbox_2" class="filled-in">
+			  <label for="basic_checkbox_2" class="mb-0 h-15"></label>
+			  <span class="text-line">Phasellus interdum</span>
+			  <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+			  <div class="tools">
+				<i class="fa fa-edit"></i>
+				<i class="fa fa-trash-o"></i>
+			  </div>
+			</li>
+			<li class="py-15 px-5 by-1">
+			  <!-- checkbox -->
+			  <input type="checkbox" id="basic_checkbox_3" class="filled-in">
+			  <label for="basic_checkbox_3" class="mb-0 h-15"></label>
+			  <span class="text-line">Quisque sodales</span>
+			  <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+			  <div class="tools">
+				<i class="fa fa-edit"></i>
+				<i class="fa fa-trash-o"></i>
+			  </div>
+			</li>
+			<li class="py-15 px-5">
+			  <!-- checkbox -->
+			  <input type="checkbox" id="basic_checkbox_4" class="filled-in">
+			  <label for="basic_checkbox_4" class="mb-0 h-15"></label>
+			  <span class="text-line">Proin nec mi porta</span>
+			  <small class="badge bg-success"><i class="fa fa-clock-o"></i> 3 days</small>
+			  <div class="tools">
+				<i class="fa fa-edit"></i>
+				<i class="fa fa-trash-o"></i>
+			  </div>
+			</li>
+			<li class="py-15 px-5 by-1">
+			  <!-- checkbox -->
+			  <input type="checkbox" id="basic_checkbox_5" class="filled-in">
+			  <label for="basic_checkbox_5" class="mb-0 h-15"></label>
+			  <span class="text-line">Maecenas scelerisque</span>
+			  <small class="badge bg-primary"><i class="fa fa-clock-o"></i> 1 week</small>
+			  <div class="tools">
+				<i class="fa fa-edit"></i>
+				<i class="fa fa-trash-o"></i>
+			  </div>
+			</li>
+			<li class="py-15 px-5">
+			  <!-- checkbox -->
+			  <input type="checkbox" id="basic_checkbox_6" class="filled-in">
+			  <label for="basic_checkbox_6" class="mb-0 h-15"></label>
+			  <span class="text-line">Vivamus nec orci</span>
+			  <small class="badge bg-info"><i class="fa fa-clock-o"></i> 1 month</small>
+			  <div class="tools">
+				<i class="fa fa-edit"></i>
+				<i class="fa fa-trash-o"></i>
+			  </div>
+			</li>
+			<li class="py-15 px-5 by-1">
+			  <!-- checkbox -->
+			  <input type="checkbox" id="basic_checkbox_7" class="filled-in">
+			  <label for="basic_checkbox_7" class="mb-0 h-15"></label>
+			  <!-- todo text -->
+			  <span class="text-line">Nulla vitae purus</span>
+			  <!-- Emphasis label -->
+			  <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+			  <!-- General tools such as edit or delete-->
+			  <div class="tools">
+				<i class="fa fa-edit"></i>
+				<i class="fa fa-trash-o"></i>
+			  </div>
+			</li>
+			<li class="py-15 px-5">
+			  <!-- checkbox -->
+			  <input type="checkbox" id="basic_checkbox_8" class="filled-in">
+			  <label for="basic_checkbox_8" class="mb-0 h-15"></label>
+			  <span class="text-line">Phasellus interdum</span>
+			  <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+			  <div class="tools">
+				<i class="fa fa-edit"></i>
+				<i class="fa fa-trash-o"></i>
+			  </div>
+			</li>
+			<li class="py-15 px-5 by-1">
+			  <!-- checkbox -->
+			  <input type="checkbox" id="basic_checkbox_9" class="filled-in">
+			  <label for="basic_checkbox_9" class="mb-0 h-15"></label>
+			  <span class="text-line">Quisque sodales</span>
+			  <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+			  <div class="tools">
+				<i class="fa fa-edit"></i>
+				<i class="fa fa-trash-o"></i>
+			  </div>
+			</li>
+			<li class="py-15 px-5">
+			  <!-- checkbox -->
+			  <input type="checkbox" id="basic_checkbox_10" class="filled-in">
+			  <label for="basic_checkbox_10" class="mb-0 h-15"></label>
+			  <span class="text-line">Proin nec mi porta</span>
+			  <small class="badge bg-success"><i class="fa fa-clock-o"></i> 3 days</small>
+			  <div class="tools">
+				<i class="fa fa-edit"></i>
+				<i class="fa fa-trash-o"></i>
+			  </div>
+			</li>
+		  </ul>
+      </div>
+      <!-- /.tab-pane -->
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+  
+  <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+  
+</div>
+<!-- ./wrapper -->
+  	
+	 
+	  
+	<!-- jQuery 3 -->
+	<script src="{% static 'assets/vendor_components/jquery-3.3.1/jquery-3.3.1.js' %}"></script>
+	
+
+	<script src="{% static 'assets/vendor_components/select2/dist/js/select2.full.js' %}"></script>
+	<!-- fullscreen -->
+	<script src="{% static 'assets/vendor_components/screenfull/screenfull.js' %}"></script>
+	
+	<!-- popper -->
+	<script src="{% static 'assets/vendor_components/popper/dist/popper.min.js' %}"></script>
+	
+	<!-- Bootstrap 4.0-->
+	<script src="{% static 'assets/vendor_components/bootstrap/dist/js/bootstrap.js' %}"></script>	
+	
+	<!-- Slimscroll -->
+	<script src="{% static 'assets/vendor_components/jquery-slimscroll/jquery.slimscroll.js' %}"></script>
+	
+	<!-- date-range-picker -->
+	<script src="{% static 'assets/vendor_components/moment/min/moment.min.js' %}"></script>
+	<script src="{% static 'assets/vendor_components/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
+	
+	<!-- FastClick -->
+	<script src="{% static 'assets/vendor_components/fastclick/lib/fastclick.js' %}"></script>
+	
+	<!-- ChartJS -->
+	<script src="{% static 'assets/vendor_components/chart.js-master/Chart.bundle.js' %}"></script>
+	<script src="{% static 'assets/vendor_components/chart.js-master/utils.js' %}"></script>
+	
+	<!-- apexcharts -->
+	<script src="{% static 'assets/vendor_components/apexcharts-bundle/data.js' %}"></script>
+	<script src="{% static 'assets/vendor_components/apexcharts-bundle/dist/apexcharts.js' %}"></script>
+	
+	<!-- CrmX Admin App -->
+	<script src="{% static 'js/jquery.smartmenus.js' %}"></script>
+	<script src="{% static 'js/menus.js' %}"></script>
+	<script src="{% static 'js/template.js' %}"></script>
+	
+	<!-- CrmX Admin dashboard demo (This is only for demo purposes) -->
+	<script src="{% static 'js/pages/dashboard4.js' %}"></script>
+	
+	<!-- CrmX Admin for demo purposes -->
+	<script src="{% static 'js/demo.js' %}"></script>	
+	  <script src="{% static 'assets/vendor_components/raphael/raphael.min.js' %}"></script>
+  <script src="{% static 'assets/vendor_components/morris.js/morris.min.js' %}"></script>
+ 
+	
+	<!-- CrmX Admin for Data Table -->
+	<script src="{% static 'js/pages/data-table.js' %}"></script>
+	<script type="text/javascript">
+
+
+ 
+    $(function () {
+     
+      $.ajax({
+    
+    url:'/create_table_ajax/',
+    data:{
+      
+      csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+    },
+    dataType: "json",
+    async: false,
+    success:function(data){
+      $('#tota_inco').text(data['sale_sum']);
+      $('#tota_expo').text(data['purch_su']);
+      
+      $('#total_incos').append(data['incomes']);
+      $('#sale_cou').append(data['sale_counts']);
+      $('#sale_amou').append(data['tod_sales']);
+       $('#cur_bal').append(data['tod_sales']);
+       
+         $('#cls_bal').append(data['tod_sales']);
+          $('#profi').append(data['totals']);
+          $('#retu_cou').append(data['return_counts']);
+          $('#retu_amo').append(data['retu_amou']);
+          $('#notifi').html(data['tag_str']);
+          $('#notifi').append(data['tag_str3']);
+          $('#taskifi').html(data['tag_str2']);
+          $('#noti_bulb').html(data['tag_noti_pointer']);
+      var x=data['x'];
+     
+      if (x == 1) {
+       
+
+    var bar = new Morris.Bar({
+      element: 'bar-chart',
+      resize: true,
+      data: [
+        {y: '1', a: data['income_day1'], b: data['expence_day1']},
+        {y: '2', a: data['income_day2'], b: data['expence_day2']},
+        {y: '3', a: data['income_day3'], b: data['expence_day3']},
+        {y: '4', a: data['income_day4'], b: data['expence_day4']},
+        {y: '5', a: data['income_day5'], b: data['expence_day5']},
+        {y: '6', a: data['income_day6'], b: data['expence_day6']},
+        {y: '7', a: data['income_day7'], b: data['expence_day7']},
+        {y: '8', a: data['income_day8'], b: data['expence_day8']},
+        {y: '9', a: data['income_day9'], b: data['expence_day9']},
+        {y: '10', a: data['income_day10'], b: data['expence_day10']},
+        {y: '11', a: data['income_day11'], b: data['expence_day11']},
+        {y: '12', a: data['income_day12'], b: data['expence_day12']},
+        {y: '13', a: data['income_day13'], b: data['expence_day13']},
+        {y: '14', a: data['income_day14'], b: data['expence_day14']},
+        {y: '15', a: data['income_day15'], b: data['expence_day15']},
+        {y: '16', a: data['income_day16'], b: data['expence_day16']},
+        {y: '17', a: data['income_day17'], b: data['expence_day17']},
+        {y: '18', a: data['income_day18'], b: data['expence_day18']},
+        {y: '19', a: data['income_day19'], b: data['expence_day19']},
+        {y: '20', a: data['income_day20'], b: data['expence_day20']},
+        {y: '21', a: data['income_day21'], b: data['expence_day21']},
+        {y: '22', a: data['income_day22'], b: data['expence_day22']},
+        {y: '23', a: data['income_day23'], b: data['expence_day23']},
+        {y: '24', a: data['income_day24'], b: data['expence_day24']},
+        {y: '25', a: data['income_day25'], b: data['expence_day25']},
+        {y: '26', a: data['income_day26'], b: data['expence_day26']},
+        {y: '27', a: data['income_day27'], b: data['expence_day27']},
+        {y: '28', a: data['income_day28'], b: data['expence_day28']},
+        {y: '29', a: data['income_day29'], b: data['expence_day29']},
+        {y: '30', a: data['income_day30'], b: data['expence_day30']},
+        {y: '31', a: data['income_day31'], b: data['expence_day31']}
+      ],
+
+    barColors: ['#4FA564', '#ef483e'],
+    barSizeRatio: .9,
+    barGap:0,
+    xkey: 'y',
+    xLabelMargin:1,
+    ykeys: ['a'],
+    labels: ['Income'],
+    hideHover: 'auto',
+
+    });
+    }
+    if (x == 2) {
+       
+
+    var bar = new Morris.Bar({
+      element: 'bar-chart',
+      resize: true,
+      data: [
+        {y: '1', a: data['income_day1'], b: data['expence_day1']},
+        {y: '2', a: data['income_day2'], b: data['expence_day2']},
+        {y: '3', a: data['income_day3'], b: data['expence_day3']},
+        {y: '4', a: data['income_day4'], b: data['expence_day4']},
+        {y: '5', a: data['income_day5'], b: data['expence_day5']},
+        {y: '6', a: data['income_day6'], b: data['expence_day6']},
+        {y: '7', a: data['income_day7'], b: data['expence_day7']},
+        {y: '8', a: data['income_day8'], b: data['expence_day8']},
+        {y: '9', a: data['income_day9'], b: data['expence_day9']},
+        {y: '10', a: data['income_day10'], b: data['expence_day10']},
+        {y: '11', a: data['income_day11'], b: data['expence_day11']},
+        {y: '12', a: data['income_day12'], b: data['expence_day12']},
+        {y: '13', a: data['income_day13'], b: data['expence_day13']},
+        {y: '14', a: data['income_day14'], b: data['expence_day14']},
+        {y: '15', a: data['income_day15'], b: data['expence_day15']},
+        {y: '16', a: data['income_day16'], b: data['expence_day16']},
+        {y: '17', a: data['income_day17'], b: data['expence_day17']},
+        {y: '18', a: data['income_day18'], b: data['expence_day18']},
+        {y: '19', a: data['income_day19'], b: data['expence_day19']},
+        {y: '20', a: data['income_day20'], b: data['expence_day20']},
+        {y: '21', a: data['income_day21'], b: data['expence_day21']},
+        {y: '22', a: data['income_day22'], b: data['expence_day22']},
+        {y: '23', a: data['income_day23'], b: data['expence_day23']},
+        {y: '24', a: data['income_day24'], b: data['expence_day24']},
+        {y: '25', a: data['income_day25'], b: data['expence_day25']},
+        {y: '26', a: data['income_day26'], b: data['expence_day26']},
+        {y: '27', a: data['income_day27'], b: data['expence_day27']},
+        {y: '28', a: data['income_day28'], b: data['expence_day28']},
+        {y: '29', a: data['income_day29'], b: data['expence_day29']},
+        {y: '30', a: data['income_day30'], b: data['expence_day30']},
+      ],
+    barColors: ['#4FA564', '#ef483e'],
+    barSizeRatio: .9,
+    barGap:0,
+    xkey: 'y',
+    xLabelMargin:1,
+    ykeys: ['a'],
+    labels: ['Income', 'Expence'],
+    hideHover: 'auto'
+    });
+    }
+    if (x == 3) {
+      
+
+    var bar = new Morris.Bar({
+      element: 'bar-chart',
+      resize: true,
+      data: [
+        {y: '1', a: data['income_day1'], b: data['expence_day1']},
+        {y: '2', a: data['income_day2'], b: data['expence_day2']},
+        {y: '3', a: data['income_day3'], b: data['expence_day3']},
+        {y: '4', a: data['income_day4'], b: data['expence_day4']},
+        {y: '5', a: data['income_day5'], b: data['expence_day5']},
+        {y: '6', a: data['income_day6'], b: data['expence_day6']},
+        {y: '7', a: data['income_day7'], b: data['expence_day7']},
+        {y: '8', a: data['income_day8'], b: data['expence_day8']},
+        {y: '9', a: data['income_day9'], b: data['expence_day9']},
+        {y: '10', a: data['income_day10'], b: data['expence_day10']},
+        {y: '11', a: data['income_day11'], b: data['expence_day11']},
+        {y: '12', a: data['income_day12'], b: data['expence_day12']},
+        {y: '13', a: data['income_day13'], b: data['expence_day13']},
+        {y: '14', a: data['income_day14'], b: data['expence_day14']},
+        {y: '15', a: data['income_day15'], b: data['expence_day15']},
+        {y: '16', a: data['income_day16'], b: data['expence_day16']},
+        {y: '17', a: data['income_day17'], b: data['expence_day17']},
+        {y: '18', a: data['income_day18'], b: data['expence_day18']},
+        {y: '19', a: data['income_day19'], b: data['expence_day19']},
+        {y: '20', a: data['income_day20'], b: data['expence_day20']},
+        {y: '21', a: data['income_day21'], b: data['expence_day21']},
+        {y: '22', a: data['income_day22'], b: data['expence_day22']},
+        {y: '23', a: data['income_day23'], b: data['expence_day23']},
+        {y: '24', a: data['income_day24'], b: data['expence_day24']},
+        {y: '25', a: data['income_day25'], b: data['expence_day25']},
+        {y: '26', a: data['income_day26'], b: data['expence_day26']},
+        {y: '27', a: data['income_day27'], b: data['expence_day27']},
+        {y: '28', a: data['income_day28'], b: data['expence_day28']},
+        {y: '29', a: data['income_day29'], b: data['expence_day29']},
+      ],
+    barColors: ['#4FA564', '#ef483e'],
+    barSizeRatio: .9,
+    barGap:0,
+    xkey: 'y',
+    xLabelMargin:1,
+    ykeys: ['a'],
+    labels: ['Income', 'Expence'],
+    hideHover: 'auto'
+    });
+    }
+    if (x == 4) {
+      
+
+    var bar = new Morris.Bar({
+      element: 'bar-chart',
+      resize: true,
+      data: [
+         {y: '1', a: data['income_day1'], b: data['expence_day1']},
+        {y: '2', a: data['income_day2'], b: data['expence_day2']},
+        {y: '3', a: data['income_day3'], b: data['expence_day3']},
+        {y: '4', a: data['income_day4'], b: data['expence_day4']},
+        {y: '5', a: data['income_day5'], b: data['expence_day5']},
+        {y: '6', a: data['income_day6'], b: data['expence_day6']},
+        {y: '7', a: data['income_day7'], b: data['expence_day7']},
+        {y: '8', a: data['income_day8'], b: data['expence_day8']},
+        {y: '9', a: data['income_day9'], b: data['expence_day9']},
+        {y: '10', a: data['income_day10'], b: data['expence_day10']},
+        {y: '11', a: data['income_day11'], b: data['expence_day11']},
+        {y: '12', a: data['income_day12'], b: data['expence_day12']},
+        {y: '13', a: data['income_day13'], b: data['expence_day13']},
+        {y: '14', a: data['income_day14'], b: data['expence_day14']},
+        {y: '15', a: data['income_day15'], b: data['expence_day15']},
+        {y: '16', a: data['income_day16'], b: data['expence_day16']},
+        {y: '17', a: data['income_day17'], b: data['expence_day17']},
+        {y: '18', a: data['income_day18'], b: data['expence_day18']},
+        {y: '19', a: data['income_day19'], b: data['expence_day19']},
+        {y: '20', a: data['income_day20'], b: data['expence_day20']},
+        {y: '21', a: data['income_day21'], b: data['expence_day21']},
+        {y: '22', a: data['income_day22'], b: data['expence_day22']},
+        {y: '23', a: data['income_day23'], b: data['expence_day23']},
+        {y: '24', a: data['income_day24'], b: data['expence_day24']},
+        {y: '25', a: data['income_day25'], b: data['expence_day25']},
+        {y: '26', a: data['income_day26'], b: data['expence_day26']},
+        {y: '27', a: data['income_day27'], b: data['expence_day27']},
+        {y: '28', a: data['income_day28'], b: data['expence_day28']},
+       
+       
+      ],
+    barColors: ['#4FA564', '#ef483e'],
+    barSizeRatio: .9,
+    barGap:0,
+    xkey: 'y',
+    xLabelMargin:1,
+    ykeys: ['a'],
+    labels: ['Income', 'Expence'],
+    hideHover: 'auto'
+    });
+    }
+    }
+  }); 
+ }); 
+  </script> 
+  <script type="text/javascript">
+  	$(document).on('click','#clear',function(e){
+
+    e.preventDefault();
+       
+           $.ajax({
+        type:'POST',
+        url:'/clearall_ajax/',
+        data:{
+            
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+        },
+
+        dataType: "json",
+        success:function(data){
+           console.log(data['cleared'])
+           $('#notifi').html('');
+           $('#noti_bulb').html("<i class='mdi mdi-bell'></i>");
+        }
+     });   
+ }); 
+  </script>
+<script src="{% static 'assets/vendor_components/sweetalert/sweetalert.min.js' %}"></script>	
+</body>
+</html>
+

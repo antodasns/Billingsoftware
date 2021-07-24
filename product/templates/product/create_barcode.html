@@ -1,0 +1,126 @@
+{%extends 'dashboard/layout.html'%}
+{% load static %}
+
+{%block content%}
+
+
+
+
+<div class="content-wrapper">
+
+<div class="content-header">
+		<div class="d-flex align-items-center">
+			<div class="mr-auto w-p50">
+				<h3 class="page-title">CREATE PRODUCT</h3>
+				<div class="d-inline-block align-items-center">
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+							<li class="breadcrumb-item active" aria-current="page">Control</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+			
+    </div>
+  </div>
+
+<section class="content"> 		
+
+<div class="row">
+		  
+		<div class="col-12">
+         
+         
+            <!-- /.box-header -->
+            <div class="row">			  
+		<div class="col-lg-4 col-12">
+			  <div class="box">
+				<div class="box-header with-border">
+				  <h4 class="box-title">BASIC INFO</h4>			
+					<ul class="box-controls pull-right">
+					 
+					  <li><a class="box-btn-slide" href="#"></a></li>	
+					 
+					</ul>
+				</div>
+				<!-- /.box-header -->
+				<form class="form" method="post" action="{% url 'product:barcode_generator'%}" id="form_id">
+					 {% csrf_token %}
+					<div class="box-body">
+					
+						<div class="row">
+						  <div class="col-md-12">
+				
+							<div class="form-group">
+							  <label >PRODUCT</label>
+							  <select required class="form-control select2"id="select_id" name="selected_product" value="1">
+							  	<option selected value="{{prid}}">{{pro_name}}</option>
+								{% for x in prodx %}<option value="{{x.id}}">{{x.product_name}}</option>{% endfor %}
+							</select>
+							</div>
+						  </div>
+						</div>
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >UNIT</label>
+							<input class="form-control" type="number" placeholder="unit" id="qty_id" name="unit" value="10">
+							</div>
+						  </div>
+                       </div>
+                       
+					 
+					<!-- /.box-body -->
+					</div>  
+          
+			  </div>
+			
+			  <!-- /.box -->			
+		</div>  
+			
+		</div>  
+</div>
+
+            </div>
+<input type="submit" class="btn btn-success" value="Submit">
+            <!-- /.box-body -->
+            </form>
+         </div>
+ <script src="{% static 'assets/vendor_components/jquery-3.3.1/jquery-3.3.1.js' %}"></script>
+  <script src="{% static 'assets/vendor_components/select2/dist/js/select2.full.js' %}"></script>
+
+<script type="text/javascript">
+	$('.select2').select2({
+    		minimumInputLength: 1,
+    		allowClear: true,
+			placeholder:'Product',
+			width:'100%'
+		});
+	$('#form_id').submit(function (e, params) {
+        var localParams = params || {};
+
+        if (!localParams.send) {
+            e.preventDefault();
+        }
+
+           //additional input validations can be done hear
+
+    swal({
+              title: 'Barcode Generated!',
+  type: 'success',
+    timer: 500,
+    showConfirmButton: false
+    
+            }, function (isConfirm) {
+               
+                    $(e.currentTarget).trigger(e.type, { 'send': true });
+                
+        });
+});
+</script>
+
+
+
+
+   {%endblock%}	

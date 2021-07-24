@@ -1,0 +1,470 @@
+{%extends 'dashboard/sales_layout.html'%}
+{% load static %}
+
+{%block content%}
+ 
+ 
+ 
+ 
+
+<div class="content-header">
+		<div class="d-flex align-items-center">
+			<div class="mr-auto w-p50">
+				
+				<div class="d-inline-block align-items-center">
+					<nav>
+					
+					</nav>
+				</div>
+			</div>
+			<div class="callout callout-success" style="margin:0px">
+						<h4>Bill Amount</h4>
+
+						<h4 id="subtotal_sumss"></h4>
+					  </div>
+			
+    
+  </div>
+
+<section class="content">
+<form class="form" method="post" action="{% url 'sales:create_sales'%}" id="submi">
+            		 {% csrf_token %}
+    <div class="row">
+		  
+         	
+		<div class="col-lg-6 col-12">
+			  <div class="box">
+				<div class="box-header with-border">
+				   <label >Sale Type</label>
+							 {{form.sale_type}}	
+					<ul class="box-controls pull-right">
+					</ul>
+				</div>
+				<!-- /.box-header -->
+			  </div>
+			  <!-- /.box -->			
+		</div>  
+
+		  
+	
+
+		<div class="col-lg-6 col-12">
+			  <div class="box">
+				<div class="box-body pb-0">
+			  <div class="row">
+				<div class="col-md-6 col-12">
+				  <div class="form-group">
+					<label >Date</label>
+							 {{form.sale_date}}	
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				<!-- /.col --> 
+				<div class="col-md-6 col-12">
+				  <div class="form-group">
+					<label >Time</label>
+							 <input type="time" id="startTime" class="form-control" step="1" name="sale_time">
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				</div>	
+				</div>	
+				</div>	 
+		</div> 
+			
+							  	{{form.sale_sub_total}}{{form.sale_tax_amount}}{{form.sale_discount_amount}}{{form.edit_tot}}{{form.sp_discount}}
+					
+</div>
+		  <div class="box">
+			<!-- /.box-header -->
+			<div class="box-body pb-0">
+			  <div class="row">
+				<div class="col-md-3 col-12">
+				  <div class="form-group">
+					<label>Barcode</label>
+					  
+                 <input type="text" class="form-control" placeholder="Barcode" id="bar_code_id" name="bar_code">
+                 <div id="bar_code_error_text"></div>
+                 <input type="hidden" class="form-control" placeholder="Barcode" id="baring" name="bar_code">
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				<!-- /.col --> 
+				<div class="col-md-3 col-12">
+				  <div class="form-group">
+					<label>Product</label><br>
+					<select required class="select2" id="select_id"  width="300" name="selected_product0"><option></option>
+								{% for x in prodx %}<option value="{{x.product_code}}">{{x.product_name}}</option>{% endfor %}</select>
+								<div id="bar_code_error_text2"></div>
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				<!-- /.col -->
+				<div class="col-md-3 col-12">
+				  <div class="form-group">
+					<label>Unit</label>
+				 <select required class="form-control select" width="300" id="unit_id" name="selected_unit0">
+								<option value="" disabled selected>Unit</option>
+								{% for x in unit_types %}<option value="{{x.product_alternate_unit}}">{{x.product_alternate_unit}}</option>{% endfor %}</select>
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				
+				<div class="col-md-3 col-12">
+				  <div class="form-group">
+					
+					<label>Qty</label>
+					<input class="form-control" type="number" placeholder="Qty" onfocus="this.select()" id="qty_id" name="qty0">
+				  </div>
+				</div>
+				  <!-- /.form-group -->
+					<div class="col-md-3 col-12 dis1" style="display: none;">
+				<div class="row">
+				<div class="col-md-6">
+				  <div class="form-group">
+					<label>Stock</label>
+			<input class="form-control" type="number" value="0" id="stock_id" name="stock0">
+				
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				<div class="col-md-6">
+				  <div class="form-group">
+					<label>Price</label>
+					<input class="form-control" type="number" value="0" id="price_id" name="price0">
+			
+				  </div>
+				</div>
+			</div>
+		</div>
+				  <div class="col-md-3 col-12 dis1" style="display: none;">
+				  <div class="form-group">
+					<label>Tax Amount</label>
+					 <input class="form-control" type="number" step="0.01" value="0" placeholder="Tax Amount" id="tax_amount_id" name="tax_amount0">
+				  </div>
+				</div>
+				  <div class="col-md-3 col-12 dis1" style="display: none;">
+				  <div class="form-group">
+					<label>Discount</label>
+					<input class="form-control" type="number" placeholder="Discount" value="0" id="discount_id" name="discount0">
+		
+				  </div>
+				</div>
+				<div class="col-md-3 col-12 dis1" style="display: none;">
+				  <div class="form-group">
+					<label>Subtotal</label>
+					<input class="form-control" type="number" value="0" id="subtotal_id"  name="sub_total0" readonly="readonly">
+							<input type="hidden" value="0" name="counting">
+							
+				  </div>
+				</div>
+				</div>
+				
+				
+				<center>
+				
+				</center>
+				<!-- /.col -->
+			  </div>
+
+			  <!-- /.row -->
+			</div>
+
+
+
+	
+					
+
+
+
+<div class="row">
+		  
+		<div class="col-12">
+         
+         <div class="box">
+            
+            <!-- /.box-header -->
+          
+            	
+				<div class="table-responsive" style="max-height: 400px">
+				  <table  id="myTable" class="table table-striped" style="padding: .25rem;display:none"> 
+					<thead>
+						<tr>
+							<th>BARCODE</th>
+							<th>PRODUCT</th>
+							<th>UNIT</th>
+							<th>QTY</th>
+							<th>STOCK</th>
+							<th>PRICE</th>
+							<th>TAX AMOUNT</th>
+							<th>DISCOUNT</th>
+							<th>SUB TOTAL</th>
+						</tr>
+					</thead>
+					<tbody id="tbody">
+						
+						
+						
+					</tbody>
+					<tfoot>
+						
+					</tfoot>
+				</table>
+				
+				</div>
+
+           
+
+            <!-- /.box-body -->
+          </div>
+
+
+
+
+         
+
+
+
+	<div class="row">	
+		
+
+		<div class="col-lg-4 col-12">
+			  <div class="box">
+				
+				<!-- /.box-header -->
+				
+					<div class="box-body">
+					
+						<div class="row">
+						  <div class="col-md-12">
+				
+							<div class="form-group">
+							  <label >Special discount</label>
+							  {{form.sale_special_discount}}
+							  <div id="speci_disc_error_text2"></div>
+							</div>
+						  </div>
+
+						 
+						</div>
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Total</label>
+							 {{form.sale_total}}
+							</div>
+						  </div>
+                       </div>
+                       <div class="row" style="display: none;">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Payment received</label>
+							 {{form.sale_payment_received}}
+							</div>
+						  </div>
+                       </div>
+                       
+							
+									
+		
+					<!-- /.box-body -->
+					</div>  
+     
+			  </div>
+			
+			  <!-- /.box -->			
+		</div>
+
+		  
+		<div class="col-lg-4 col-12">
+			  <div class="box">
+				
+				<!-- /.box-header -->
+			
+					<div class="box-body">
+					
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Total Tax Amount</label>
+							  {{form.sale_total_tax_amount}}
+							</div>
+						  </div>
+						 
+						</div>
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Total Discount Amount</label>
+							 {{form.sale_total_discount_amount}}
+							</div>
+						  </div>
+						 
+						</div>
+						<div class="row" style="display: none;">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Round Off</label>
+							   {{form.sale_round_off}}
+							</div>
+						  </div>
+						 
+						</div>
+						
+
+
+						
+		</div>  
+</div>
+
+
+			  <!-- /.box -->			
+		</div>
+			<div class="col-md-4 col-12">
+			  <div class="box">
+				
+				<!-- /.box-header -->
+			
+					<div class="box-body">
+					
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  
+							  <label >Transaction mode</label>
+							 {{form.sale_transaction_mode}}
+							</div>
+						  </div>
+						 
+						</div>
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Cash Account</label>
+						 {{form.sale_cash_account}}
+						 {{form.cust_sale_total}}
+						 {{form.cust_deb_cre}}
+							</div>
+						  </div>
+						 
+						</div>
+
+
+
+						
+		</div>  
+</div>
+ 
+</div>
+			 
+		 </div>
+		 <!-- <input type="submit" class="btn btn-success" value="Submit"> -->
+			<button type="button" id="form-button-submit" class="btn btn-success">Submit</button>			
+		
+			</div>
+		</form>
+		
+        </div>
+</div>
+ 
+
+ <script src="{% static 'assets/vendor_components/jquery-3.3.1/jquery-3.3.1.js' %}"></script>
+  <script src="{% static 'assets/vendor_components/select2/dist/js/select2.full.js' %}"></script>
+  <script src="{% static 'js/create_sales.js' %}"></script>
+ 
+       <script>
+    	$('.select2').select2({
+    		minimumInputLength: 1,
+    		allowClear: true,
+			placeholder:'Product',
+			width:'100%'
+		});
+		
+    	$("#startDate").val(new Date().toJSON().slice(0,10));
+    	
+    	var time = (new Date()).toTimeString().split(' ')[0];
+
+    	$("#startTime").val(time);
+</script>
+
+<script type="text/javascript">
+	$('#bar_code_id').focus();
+	
+
+	$('#form-button-submit').click(function(){
+    $('form').submit();
+  		});
+
+	$('.form').submit(function(e) {
+		$('#sale_type_id').attr('disabled',false);
+		});
+
+
+$('.form').submit(function(e) {
+    if ($.trim($("#special_discount_id").val()) === "") {
+        e.preventDefault();
+        //alert('Special discount field empty.Please enter 0 in special discount to continue!');
+         // swal ( "Special discount field empty" ,  "Please enter 0 in special discount to continue!" ,  "warning" )
+         $('#speci_disc_error_text2').html('<div class="spec_red" style="color:red">Enter Discount Amount</div>');
+    }
+});
+
+
+$('.form').submit(function(e) {
+   if($('td').length == 0) {
+        e.preventDefault();
+        //alert('Special discount field empty.Please enter 0 in special discount to continue!');
+         // swal ( "No Product selected" ,  "Please enter 0 in special discount to continue!" ,  "warning" )
+         $('#bar_code_error_text').html('<div class="red" style="color:red">Scan a Barcode</div>');
+         $('#bar_code_error_text2').html('<div class="red" style="color:red">Select a Product</div>');
+         $('#bar_code_id').focus();
+    }
+});
+
+// $('.form').submit(function(e) {
+//     if ($.trim($("#select_id").val()) === "") {
+//         e.preventDefault();
+//         //alert('Special discount field empty.Please enter 0 in special discount to continue!');
+         
+//     }
+//     var name=$('#select_id').val();
+//     if(name.length == 0){
+//         $('#select_id').after('<div class="red" style="color:red">Field is Required</div>');
+//     }
+// });
+	
+	$('#bar_code_id,#select_id').change(function(){
+		
+		$('#bar_code_error_text').remove();
+		$('#bar_code_error_text2').remove();
+});
+	$(document).on('input','#special_discount_id',function(e){
+		
+		$('.spec_red').remove();
+		
+});
+</script>
+<script type="text/javascript">
+	window.addEventListener( "pageshow", function ( event ) {
+  var historyTraversal = event.persisted || 
+                         ( typeof window.performance != "undefined" && 
+                              window.performance.navigation.type === 2 );
+  if ( historyTraversal ) {
+    // Handle page restore.
+    window.location.reload();
+  }
+});
+</script>
+<script type="text/javascript">
+	$("#form-button-submit").click(function(e) {
+var form = this;
+    e.preventDefault();
+    setTimeout(function () {
+        form.submit();
+    }, 550);
+    if(($('td').length != 0) && ($.trim($("#special_discount_id").val()) != "")) {
+   swal ( "Success" ,  "Sale Created succesfull!" ,  "success" )
+	}
+ }); 
+</script>
+   {%endblock%}											 

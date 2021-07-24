@@ -1,0 +1,147 @@
+{%extends 'dashboard/layout.html'%}
+{% load static %}
+
+{%block content%}
+
+
+
+
+
+<div class="content-wrapper">
+<div class="content-header">
+		<div class="d-flex align-items-center">
+			<div class="mr-auto w-p50">
+				<h3 class="page-title">CREATE DAILY SALES REPORT</h3>
+				<div class="d-inline-block align-items-center">
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+							<li class="breadcrumb-item active" aria-current="page">Control</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+			
+    </div>
+  </div>
+
+<section class="content">	
+
+<div class="row">
+		  
+		<div class="col-12">
+         
+         
+            <!-- /.box-header -->
+            <div class="row">			  
+		<div class="col-lg-4 col-12">
+			  <div class="box">
+				<div class="box-header with-border">
+				  <h4 class="box-title">Create Sales Report</h4>			
+					<ul class="box-controls pull-right">
+					 <form class="form" method="post" action="{% url 'reports:view_sales_reports'%}">
+         	{% csrf_token %}
+					  <li><a class="box-btn-slide" href="#"></a></li>	
+					  
+					</ul>
+				</div>
+				<!-- /.box-header -->
+				<form class="form">
+					<div class="box-body">
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Month</label>
+							 <!-- {{form.create_sales_report_month}} -->
+							 <select name="create_sales_report_month" class="form-control" id="month">
+							 	<option value="1">January</option>
+							 	<option value="2">February</option>
+							 	<option value="3">March</option>
+							 	<option value="4">April</option>
+							 	<option value="5">May</option>
+							 	<option value="6">June</option>
+							 	<option value="7">July</option>
+							 	<option value="8">August</option>
+							 	<option value="9">September</option>
+							 	<option value="10">October</option>
+							 	<option value="11">November</option>
+							 	<option value="12">December</option>
+							 	
+							 </select>
+							</div>
+						  </div>
+						</div>
+
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Year</label>
+							 <input type="number" name="create_sales_report_year" class="form-control" id="year">
+							</div>
+						  </div>
+						</div>
+					
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label> Category</label>
+							  <select name="create_sales_report_category" class="form-control">
+							 	<option value="all">all</option>
+							 	<option value="b2b">B TO B</option>
+							 	<option value="b2c">B TO C</option>
+							 </select>
+							</div>
+						  </div>
+						 
+						</div>
+						
+						
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group ">
+							</div>
+						</div>				
+			</div>
+		 <input type="submit" class="btn btn-success" value="Submit">
+					<!-- /.box-body -->
+					</div> 
+
+                </form>
+			  </div>
+			  
+
+			  <!-- /.box -->			
+		</div>  
+
+		  
+		
+		</div>  
+			  <!-- /.box -->			
+		</div>
+				</div>
+            </div>
+            <!-- /.box-body -->
+
+
+ <script src="{% static 'assets/vendor_components/jquery-3.3.1/jquery-3.3.1.js' %}"></script>         
+
+<script type="text/javascript">
+	$(document).ready(function(){
+
+var today=new Date();
+
+
+$('#year').val(today.getFullYear()); 
+
+
+var d = new Date();
+  var n = d.getMonth();
+$('#month').val(n+1); 
+
+ })
+</script>
+
+
+
+
+   {%endblock%}	

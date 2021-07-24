@@ -1,0 +1,185 @@
+{%extends 'dashboard/layout.html'%}
+{% load static %}
+
+{%block content%}
+
+<style>
+.btn-default.btn-on.active{background-color: #5BB75B;color: white;}
+.btn-default.btn-off.active{background-color: #DA4F49;color: white;}
+</style>
+
+
+<div class="content-wrapper">
+
+<div class="content-header">
+		<div class="d-flex align-items-center">
+			<div class="mr-auto w-p50">
+				<h3 class="page-title">Settings</h3>
+				<div class="d-inline-block align-items-center">
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+							<li class="breadcrumb-item active" aria-current="page">Control</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+			
+    </div>
+  </div>
+
+<section class="content">	
+
+<div class="row">
+		  
+		<div class="col-12">
+         
+         
+            <!-- /.box-header -->
+       
+		  
+		
+			  <!-- /.box -->			
+		</div><div class="col-12">
+		  <!-- SELECT2 EXAMPLE -->
+		  <div class="box">
+			<div class="box-header with-border">
+			  <h4 class="box-title">Settings</h4>
+				<ul class="box-controls pull-right">
+				  
+				  <li><a class="box-btn-slide" href="#"></a></li>	
+				</ul>
+			</div>
+			<form class="form" method="post" action="{% url 'settings_billing:create_settings'%}" enctype="multipart/form-data">
+            		 {% csrf_token %}
+			<!-- /.box-header -->
+			<div class="box-body pb-0">
+			  <div class="row">
+				<div class="col-md-6 col-12">
+				  <div class="form-group">
+					<label>Name<span class="text-danger">*</span></label>
+  								   
+					  
+					<input type="text" class="form-control"  name="name" value="{{store_info.store_name}}">  
+					
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				<!-- /.col -->
+				<div class="col-md-6 col-12">
+				  <div class="form-group">
+					<label>E-mail<span class="text-danger">*</span></label>
+		
+			  <input type="text" class="form-control"  name="mail" value="{{store_info.store_email}}">  
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				<!-- /.col -->
+				<div class="col-md-6 col-12">
+				  <div class="form-group">
+					<label>Barcode Name<span class="text-danger">*</span></label><span class="text-danger"> (Max 3 characters)</span>
+					
+           
+					 <input type="text" required class="form-control"  name="code" minlength="2" maxlength='3' value="{{store_info.store_code}}">  
+					</select>
+				  </div>
+				  <!-- /.form-group -->
+                  
+				</div>
+				<div class="col-md-6 col-12">
+				  <div class="form-group">
+					<label>Phone<span class="text-danger">*</span></label>
+					
+           
+					 <input type="text" class="form-control"  name="phoneno" maxlength="10" value="{{store_info.store_phone}}">  
+					</select>
+				  </div>
+				  <!-- /.form-group -->
+                  
+				</div>
+				<div class="col-md-6 col-12">
+				  <div class="form-group">
+					<label>Address<span class="text-danger">*</span></label>
+			
+					 <input type="text" class="form-control"  name="address" value="{{store_info.store_adress}}">  
+					</select>
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				<div class="col-md-6 col-12">
+				  <div class="form-group">
+					<label>Gst in<span class="text-danger">*</span></label>
+					
+					 <input type="text" class="form-control"  name="gstno" value="{{store_info.store_gst}}">  
+					</select>
+				  </div>
+				  <!-- /.form-group -->
+					
+				</div>
+				<div class="col-md-6 col-12">
+				  <div class="form-group">
+					<label>State<span class="text-danger">*</span></label>
+				
+			
+				  <input type="text" class="form-control"  name="states" value="{{store_info.store_state}}">  
+				  </div>
+				  <!-- /.form-group -->
+					
+				</div>
+				<div class="col-md-6 col-12">
+				  <div class="form-group">
+					<label>Website</label>
+				
+		
+				<input type="text" class="form-control"  name="site" value="{{store_info.store_website}}">  
+				
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+			<div class="col-md-6 col-12">
+				 <div class="form-group">
+							<div class="checkbox checkbox-success">
+								<label for="exampleInputFile" >Cess</label>
+							<div class="btn-group" id="status" data-toggle="buttons">
+              <label class="btn btn-default btn-on btn-xs {% if store_info.cess_status == 'YES' %}active{% endif %}">
+              <input type="radio" value="YES" name="cess_stat" checked="{% if store_info.cess_status == 'YES' %}checked{% endif %}">ON</label>
+              <label class="btn btn-default btn-off btn-xs {% if store_info.cess_status == 'NO' %}active{% endif %}">
+              <input type="radio" value="NO" name="cess_stat" checked="{% if store_info.cess_status == 'NO' %}checked{% endif %}">OFF</label>
+            </div>
+							</div><br>
+						
+
+						<div class="form-group">
+          
+							<div class="checkbox checkbox-success">
+							
+								 <label for="exampleInputFile" >Logo</label>
+                <input type="file"  name="photos" value="">
+                 
+							</div>
+							</div>
+							
+						</div>
+					</div>
+
+
+				<!-- /.col -->
+			  </div>
+
+			  <!-- /.row -->
+			</div>
+
+			<!-- /.box-body -->
+		  </div>
+		   <input type="submit" class="btn btn-success" value="Submit">
+		
+        </div> 
+		  </form>
+
+            </div>
+
+       
+         </div>
+
+
+   {%endblock%}	

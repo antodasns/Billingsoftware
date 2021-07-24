@@ -1,0 +1,182 @@
+{%extends 'dashboard/layout.html'%}
+{% load static %}
+
+{%block content%}
+
+
+
+ 
+<div class="content-wrapper">
+
+<div class="content-header">
+		<div class="d-flex align-items-center">
+			<div class="mr-auto w-p50">
+				<h3 class="page-title">CREATE SALES RETURNS</h3>
+				<div class="d-inline-block align-items-center">
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+							<li class="breadcrumb-item active" aria-current="page">Control</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+			
+    </div>
+  </div>
+
+<section class="content">	
+ 
+<div class="row">
+		  
+		<div class="col-12">
+            <!-- /.box-header -->
+
+			  <!-- /.box -->			
+		</div>
+		<div class="col-12">
+		  <!-- SELECT2 EXAMPLE -->
+		  <div class="box">
+			<div class="box-header with-border">
+			  <h4 class="box-title">Create sales return</h4>
+				<ul class="box-controls pull-right">
+				  
+				  <li><a class="box-btn-slide" href="#"></a></li>	
+				</ul>
+			</div>
+			 <form class="form" method="post" action="{% url 'returns:create_sales_return2'%}">
+         	{% csrf_token %}
+			<!-- /.box-header -->
+			<div class="box-body pb-0">
+			  <div class="row">
+				<div class="col-md-4 col-12">
+				  <div class="form-group">
+					<label>Bill No</label>
+					  
+                 
+					  
+					  
+					<select required class="form-control select"id="select_id" name="selected_cust"><option selected value="{{prid}}">{{pro_name}}</option>
+								{% for x in sales %}<option value="{{x.sale_invoice_ref}}">{{x.sale_invoice_ref}}</option>{% endfor %}</select>
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				<!-- /.col -->
+				<div class="col-md-4 col-12" style="display: none;">
+				  <div class="form-group">
+					<label>Credit</label>
+					 <input type="number" name="return_credit" class="form-control" id="cust_credit">
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				<!-- /.col -->
+				<div class="col-md-4 col-12" style="display: none;">
+				  <div class="form-group">
+					<label>Debit</label>
+				<input type="number" name="return_debit" class="form-control" id="cust_debit">
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				
+				
+				
+
+				<!-- /.col -->
+			  </div>
+
+			
+
+ 
+		
+		</div>
+		<div class="col-12">
+		  <!-- SELECT2 EXAMPLE -->
+		  <div class="box">
+		
+            <!-- /.box-header -->
+            
+				<div class="table-responsive">
+					
+				  <table class="table table-bordered table-striped">
+					<thead>
+						
+						<tr>
+							<th></th>
+							<th style="font-weight: bold">PRODUCT</th>
+							<th style="font-weight: bold">QTY</th>
+							<th style="font-weight: bold">UNIT</th>
+							<th style="font-weight: bold">PRICE</th>
+							<th style="font-weight: bold">DISCOUNT</th>
+							<th style="font-weight: bold">TOTAL</th>
+							
+						</tr>
+
+					</thead>
+					<tbody>
+						
+				
+							
+					
+
+					</tbody>
+					<tfoot>
+						<tr style="display: none;">
+							<th> </th>
+							<th>ID</th>
+							<th>NAME</th>
+							<th>CODE</th>
+							<th>CATEGORY</th>
+							<th>HSN</th>
+							<th>COST</th>
+							<th>PRICE</th>
+							<th>MRP</th>
+							<th>STOCK</th>
+							<th>ACTION</th>
+						</tr>
+					</tfoot>
+				</table>
+				</div>
+			</div> 
+
+			  <!-- /.box -->			
+		
+		  
+		  <!-- /.box -->
+        
+
+
+            </div>
+
+</div>
+
+         <input type="submit" class="btn btn-success" value="Submit">
+			 </form>			    <!-- /.box-body -->
+         </div>
+                   </div>
+</div>
+     
+<script src="{% static 'assets/vendor_components/jquery-3.3.1/jquery-3.3.1.js' %}"></script>
+<script src="{% static 'js/create_sales_return.js' %}"></script>
+
+ <script src="{% static 'assets/vendor_components/select2/dist/js/select2.full.js' %}"></script>
+<script>
+    	$('#select_id').select2({
+    		
+    		allowClear: true,
+			placeholder:'Enter Bill No.',
+			width:'100%'
+		});
+		
+    	
+    	$('form').submit(function (e) {
+        //check atleat 1 checkbox is checked
+        if (!$('.filled-in').is(':checked')) {
+            //prevent the default form submit if it is not checked
+            swal("Error", "Please Check a Product to Return!", "error");   
+            e.preventDefault();
+        }
+    })
+
+</script>
+
+   {%endblock%}	

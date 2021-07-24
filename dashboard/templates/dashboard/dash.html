@@ -1,0 +1,190 @@
+{%extends 'dashboard/layout.html'%}
+{% load static %}
+ 
+{%block content%}
+
+<div class="content-wrapper">
+	  <div class="container-full">
+		<!-- Content Header (Page header) -->  
+		<div class="content-header">
+			<div class="d-flex align-items-center">
+				<div class="mr-auto w-p50">
+					<h3 class="page-title">Dashboard</h3>
+					<div class="d-inline-block align-items-center">
+						<nav>
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+								<li class="breadcrumb-item active" aria-current="page">Control</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+				<div class="right-title w-170">
+					<span class="subheader_daterange font-weight-600" id="dashboard_daterangepicker" style="padding: 10px;">
+						<span class="subheader_daterange-label">
+							<span class="subheader_daterange-title"></span>
+							<span class="subheader_daterange-date text-primary"></span>
+						</span>
+						
+					</span>
+				</div>
+			</div>
+		</div>
+
+					<div class="box-body text-center" style="display: none;">
+					  <canvas id="earning" class="h-400"></canvas>
+					</div>
+		<!-- Main content -->
+		<section class="content">
+			<div class="row">
+				<div class="col-xl-3 col-12">
+					
+						<div class="box box-body bg-danger pull-up">
+							<div class="text-center">
+								<h1 class="font-size-50">Product</h1>
+								<h1 class="font-size-70"><a href="{% url 'product:create_products'%}" class="text-primary"><i class="mdi mdi-plus-circle-outline"></i></h1>
+								<h1 class="font-size-70"><a href="{% url 'product:product_details'%}"  class="text-primary"><i class="mdi mdi-airplay"></i></a></h1>	
+
+							</div>	
+
+						
+					</div>
+				</div>
+				<div class="col-xl-3 col-12">
+					
+						<div class="box box-body bg-warning pull-up">
+							<div class="text-center">
+								<h1 class="font-size-50">Sales</h1>
+								<h1 class="font-size-70"><a href="{% url 'sales:create_sales'%}" class="text-info"  target="_blank"><i class="mdi mdi-plus-circle-outline"></i></a></h1>
+								<h1 class="font-size-70"><a href="{% url 'sales:sales_details'%}"  class="text-info"><i class="mdi mdi-airplay"></i></a></h1>		
+							</div>					
+						</div>
+					
+				</div>
+				<div class="col-xl-3 col-12">
+				
+						<div class="box box-body bg-success pull-up">
+							<div class="text-center">
+								<h1 class="font-size-50">Return</h1>
+								<h1 class="font-size-70"><a href="{% url 'returns:create_sales_return'%}" class="text-warning"><i class="mdi mdi-plus-circle-outline"></i></a></h1>
+								<h1 class="font-size-70"><a href="{% url 'returns:sales_return'%}"  class="text-warning"><i class="mdi mdi-airplay"></i></a></h1>		
+							</div>					
+						</div>
+				
+				</div>
+				<div class="col-xl-3 col-12">
+				
+						<div class="box box-body bg-info pull-up">
+							<div class="text-center">
+								<h1 class="font-size-50">Report</h1>
+								<h1 class="font-size-70"><a href="{% url 'reports:create_sales_reports'%}" class="text-danger"><i class="mdi mdi-file-chart"></i></a></h1>
+								<h1 class="font-size-70"><a href="{% url 'reports:create_monthly_reports'%}" class="text-danger"><i class="fa fa-calendar"></i></a></h1>		
+							</div>					
+					
+					</div>
+				</div>
+				
+						<div class="col-12 col-lg-12">
+				<div class="box">
+				  <div class="box-header with-border">
+					<h4 class="box-title">Store Status</h4>
+					<ul class="box-controls pull-right">
+					  <li><a class="box-btn-close" href="#"></a></li>
+					  <li><a class="box-btn-slide" href="#"></a></li>	
+					  <li><a class="box-btn-fullscreen" href="#"></a></li>
+					</ul>
+				  </div>
+
+				  <div class="box-body">
+					  <br>
+					  <div class="row">
+						<div class="col-12 col-lg-10">
+					  		<div class="chart" id="bar-chart" style="height: 278px;"></div>
+						</div>
+						<div class="col-12 col-lg-2">
+						  <h5 class="text-center mb-15" style="font-weight: bold;">Sales Details</h5>
+
+						  <div class="progress-group">
+							<center>Sale Count<br><br>
+							<!-- <span style="><input type=" button"="" class="btn btn-success mb-5" id="sale_cou" "> -->
+								<h5 class="description-header" id="sale_cou" style="font-weight:575;"></h5>
+									</span>
+
+							
+						  </div>
+						  <!-- /.progress-group -->
+						  <div class="progress-group">
+							<center>Sale Amount</span><br><br>
+							<!-- <span style="><input type=" button"="" class="btn btn-success mb-5" id="sale_amou" "> -->
+								<h5 class="description-header" id="sale_amou" style="font-weight:575;"></h5>
+									</span>
+
+							
+						  </div>
+						  <!-- /.progress-group -->
+						  
+						 <div class="progress-group">
+							<center>Return Count</span><br><br>
+							<!-- <span style="><input type=" button"="" class="btn btn-success mb-5" id="retu_cou" "> -->
+								<h5 class="description-header" id="retu_cou" style="font-weight:575;"></h5>
+									</span>
+
+
+							
+						  </div>
+
+						  <!-- /.progress-group -->
+						  <div class="progress-group">
+							<center>Sale Return</span><br><br>
+							<!-- <span style="><input type=" button"="" class="btn btn-success mb-5" id="retu_amo" "> -->
+								<h5 class="description-header" id="retu_amo" style="font-weight:575;"></h5>
+									</span>
+
+
+							
+						  </div>
+						  
+						  <!-- /.progress-group -->
+						</div>
+					  </div>
+					  
+					 <div class="row">
+						
+						<div class="col-6 col-md-6">
+						  <div class="description-block br-1">
+							<br>
+							<h5 class="description-header" id="total_incos" style="font-weight:575;"></h5>
+							<span class="description-text">INCOME</span>
+						  </div>
+						  <!-- /.description-block -->
+						</div>
+						
+						<!-- /.col -->
+						<div class="col-6 col-md-6">
+						  <div class="description-block br-1">
+							<br>
+							<h5 class="description-header" id="profi" style="font-weight:575;"></h5>
+							<span class="description-text">PROFIT</span>
+						  </div>
+						  <!-- /.description-block -->
+						</div>
+						<!-- <div class="col-6 col-md-4">
+						  <div class="description-block br-1">
+							<br>
+							<h5 class="description-header" id="tota_inco" style="font-weight:575;"></h5>
+							<span class="description-text">TOTAL INCOME</span>
+						  </div>
+						
+						</div> -->
+						
+					  </div>
+				  </div>
+				</div>
+			</div>
+					<!-- /.box-body -->
+				  </div>
+				  <!-- /.box -->			
+				</div>
+</section>
+
+{%endblock%}	

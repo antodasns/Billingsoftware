@@ -1,0 +1,141 @@
+{%extends 'dashboard/layout.html'%}
+{% load static %}
+
+{%block content%}
+
+
+
+
+
+<div class="content-wrapper">
+<div class="content-header">
+		<div class="d-flex align-items-center">
+			<div class="mr-auto w-p50">
+				<h3 class="page-title">SALES RETURNS</h3>
+				<div class="d-inline-block align-items-center">
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+							<li class="breadcrumb-item active" aria-current="page">Control</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+			
+    </div>
+  </div>
+
+<section class="content">				
+
+
+<div class="row">
+		  
+		<div class="col-12">
+         
+         <div class="box">
+            <div class="box-header with-border">
+            	<form class="form" method="post" action="{% url 'returns:delete_all_return'%}">
+					 {% csrf_token %}
+              <h3 class="box-title">Sale Returns</h3>
+              <span class="icon-input-btn"><span class="glyphicon glyphicon-trash"></span><input type="submit" class="btn btn-info btn-md" value="Delete" id="deletesal"></span>
+            </div>
+            <!-- /.box-header -->
+                  <div class="box-body">
+				<div class="table-responsive">
+				  <table id="example1" class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th> <input type="checkbox" id="ckbCheckAll" /><label for="ckbCheckAll"></label></th>
+							<input type="text" name="checked_pro" value="0" id="checked_pro" style="display: none;">
+							<th>ID</th>
+							
+							<th>TIME</th>
+							<th>RETURNABLE AMOUNT</th>
+							<th>AMOUNT RETURNED</th>
+							<th>ACTION</th>
+							</tr>
+
+					</thead>
+					<tbody>
+						{% for a,b,c,d,x in zipped%}
+						<tr> 
+							<td><input type="checkbox" id="checkbox_{{a}}" class="filled-in" name='check' value="{{a}}">
+								<label for="checkbox_{{a}}"></label>
+								</td>
+							<td>{{a}}</td>
+							
+							<td>{{b}}</td>
+							<td>{{c}}</td>
+							<td>{{d}}</td>
+							
+							
+							<td style="white-space:nowrap;">
+							<span style="font-size:15px;><input type="button" class="btn btn-circle btn-info btn-sm mb-5" onclick="window.location.href='../returns/delete_sales_return/{{x.id}}'">
+								<i class="mdi mdi-delete"style="font-size:20px"></i></span></td>
+						</tr>
+							{%endfor%}
+					</tbody>
+					<tfoot>
+						<tr style="display: none;">
+							<th></th>
+							<th>ID</th>
+							<th>CUSTOMER</th>
+							<th>TIME</th>
+							<th>RETURNABLE AMOUNT</th>
+							<th>AMOUNT RETURNED</th>
+							<th>ACTION</th>
+						</tr>
+					</tfoot>
+				</table>
+				</div>
+            </div>
+            <!-- /.box-body -->
+         </div>
+          <!-- /.box -->      
+        </div>
+        </div>
+
+
+<script src="{% static 'assets/vendor_components/jquery-3.3.1/jquery-3.3.1.js' %}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#ckbCheckAll').on('click',function(){
+        if(this.checked){
+            $('.filled-in').each(function(){
+                this.checked = true;
+            });
+        }else{
+             $('.filled-in').each(function(){
+                this.checked = false;
+            });
+        }
+    });
+    
+    $('.filled-in').on('click',function(){
+        if($('.filled-in:checked').length == $('.filled-in').length){
+            $('#ckbCheckAll').prop('checked',true);
+        }else{
+            $('#ckbCheckAll').prop('checked',false);
+        }
+    });
+});
+
+ 	$(document).ready(function() {
+        $("#deletesal").click(function(){
+        	
+            var favorite = [];
+            $.each($("input[name='check']:checked"), function(){            
+                favorite.push($(this).val());
+                $('#checked_pro').val(favorite);
+                
+            });
+            
+        });
+    });
+
+
+</script>
+
+
+   {%endblock%}	
+

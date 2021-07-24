@@ -1,0 +1,243 @@
+{%extends 'admin_billing/main_layoutc.html'%}
+{% load static %}
+
+{%block content%}
+
+
+
+ 
+
+
+<div class="content-header">
+		<div class="d-flex align-items-center">
+			<div class="mr-auto w-p50">
+				<h3 class="page-title">CREATE SALES RETURNS</h3>
+				<div class="d-inline-block align-items-center">
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+							<li class="breadcrumb-item active" aria-current="page">Control</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+			<div class="right-title text-right w-170">
+        <span class="subheader_daterange font-weight-600" id="dashboard_daterangepicker">
+          <span class="subheader_daterange-label">
+            <span class="subheader_daterange-title"></span>
+            <span class="subheader_daterange-date text-primary"></span>
+          </span>
+          <a href="#" class="btn btn-sm btn-primary">
+            <i class="fa fa-angle-down"></i>
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+
+<div class="box-body">
+				
+				
+						<div class="col-12 col-lg-12">
+					  		<div class="chart" id="bar-chart" style="display:none;"></div>
+			
+</div>
+
+<div class="row">
+		  
+		<div class="col-12">
+         
+         
+            <!-- /.box-header -->
+       
+		  
+		
+			  <!-- /.box -->			
+		</div><div class="col-12">
+		  <!-- SELECT2 EXAMPLE -->
+		  <div class="box">
+			<div class="box-header with-border">
+			  <h4 class="box-title">Create sales return</h4>
+				<ul class="box-controls pull-right">
+				  
+				  <li><a class="box-btn-slide" href="#"></a></li>	
+				</ul>
+			</div>
+			 <form class="form" method="post" action="{% url 'returns:create_sales_return'%}">
+         	{% csrf_token %}
+			<!-- /.box-header -->
+			<div class="box-body pb-0">
+			  <div class="row">
+				<div class="col-md-6 col-12">
+				  <div class="form-group">
+					<label>Sale</label>
+					  
+                 
+					  
+					  
+					<select required class="form-control select"id="select_id" name="selected_cust"><option selected>...............</option>
+								{% for x,y,z in zipped %}<option value="{{x}}">{{x}}&nbsp;&nbsp;{{z}}</option>{% endfor %}</select>
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				<!-- /.col -->
+				<div class="col-md-6 col-12">
+				  <div class="form-group">
+					<label>Credit</label>
+					 {{form.return_credit}}
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				<!-- /.col -->
+				<div class="col-md-6 col-12">
+				  <div class="form-group">
+					<label>Debit</label>
+				{{form.return_debit}}
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				<div class="col-md-6 col-12">
+				  <div class="form-group">
+					<label>Returnable Amount</label>
+			{{form.return_returnable_amount}}
+					 
+					</select>
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				<div class="col-md-6 col-12">
+				  <div class="form-group">
+					<label>Amount returned</label>
+			{{form.return_amount_retuned}}
+					 
+					</select>
+				  </div>
+				  <!-- /.form-group -->
+				</div>
+				<div class="col-md-6 col-12">
+				  <div class="form-group">
+					<label>Time</label>
+					{{form.return_time}}
+					 
+					</select>
+				  </div>
+				  <!-- /.form-group -->
+					
+				</div>
+				
+				
+
+				<!-- /.col -->
+			  </div>
+
+			  <!-- /.row -->
+			</div>
+
+
+			<!-- /.box-body -->
+		  </div>
+		</div>
+		<div class="col-12">
+		  <!-- SELECT2 EXAMPLE -->
+		  <div class="box">
+		
+            <!-- /.box-header -->
+            
+				<div class="table-responsive">
+					
+				  <table class="table table-bordered table-striped">
+					<thead>
+						
+						<tr>
+							<th></th>
+							<th>PRODUCT</th>
+							<th>QTY</th>
+							<th>UNIT</th>
+							<th>PRICE</th>
+							<th>DISCOUNT</th>
+							<th>TOTAL</th>
+							<th>STATUS</th>
+							<th>SUBTOTAL</th>
+						</tr>
+
+					</thead>
+					<tbody>
+						
+						
+							
+					
+
+					</tbody>
+					<tfoot>
+						<tr style="display: none;">
+							<th> </th>
+							<th>ID</th>
+							<th>NAME</th>
+							<th>CODE</th>
+							<th>CATEGORY</th>
+							<th>HSN</th>
+							<th>COST</th>
+							<th>PRICE</th>
+							<th>MRP</th>
+							<th>STOCK</th>
+							<th>ACTION</th>
+						</tr>
+					</tfoot>
+				</table>
+				</div>
+			</div> 
+		  <div class="col-lg-4 col-12">
+			  <div class="box">
+				<div class="box-header with-border">
+				  <h4 class="box-title">Transaction Details</h4>			
+					<ul class="box-controls pull-right">
+					
+					  <li><a class="box-btn-slide" href="#"></a></li>	
+					
+					</ul>
+				</div>
+				<!-- /.box-header -->
+				
+					<div class="box-body">
+					
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Transaction mode</label>
+						{{form.return_transaction_mode}}
+							</div>
+						  </div>
+						 
+						</div>
+						<div class="row">
+						  <div class="col-md-12">
+							<div class="form-group">
+							  <label >Cash Account</label>
+							{{form.return_cash_account}}
+							</div>
+						  </div>
+						 
+						</div>
+						
+						
+				</div>  
+		</div>
+			  <!-- /.box -->			
+		
+		   <input type="submit" class="btn btn-success" value="Submit">
+						
+		  <!-- /.box -->
+        </div> 
+		  </form>
+
+            </div>
+
+            <!-- /.box-body -->
+         </div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/create_sales_return.js' %}"></script>
+
+
+
+
+   {%endblock%}	

@@ -1,0 +1,618 @@
+{% load static %}
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <title>Tax Invoice | Maxerbox</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico">
+    
+</head>
+<body>
+    
+    
+    
+    
+    
+    <div class="print_container">
+        <table class="header top">
+            <tbody><tr>
+                <td colspan="10">TAX INVOICE</td>
+                <td class="small">{{cust_invo_sum}}</td>
+                <td class="small">{{bill_final_date|date:"d/m/Y"}}</td>
+                <td class="small">₹:{{bill_final_total}}</td>
+            </tr>
+        </tbody></table>
+        <table class="address">
+       
+            <tbody><tr>
+                <td class="logo">
+                  <img src="{{store_info.store_logo.url}}" alt="{{store_info.store_name}}" style="width: 100px;padding: 5px;">
+                
+                <td>
+                    <h2></h2>
+                    <h3></h3>
+                    <p>
+                        <strong>{{store_info.store_name}}</strong>
+                        <br> 
+                        Address :: {{store_info.store_adress}} 
+                        <br> 
+                        GSTIN :: {{store_info.store_gst}} 
+                        <br> 
+                    </p>   
+                </td>
+                <td>
+                       <td>
+           
+                    <p>{{store_info.store_email}}</p>
+                    <p>{{store_info.store_phone}}</p>
+                </td>
+                    </p>   
+                </td>
+            </tr>
+              
+        </tbody></table>
+       <!--  <table class="user_details">
+            <tr class="user_details">
+                <td>
+                    <h2>Billing Details</h2>
+                    <p>
+                        
+                        <strong>-</strong>
+                        
+                        
+                        <br /> -
+                        
+                        
+                        <br /> -
+                        
+                        
+                        <br /> -
+                        
+                    </p>   
+                </td>
+                <td>
+                    <h2>Shipping Details</h2>
+                    <p>
+                        
+                        <strong>-</strong>
+                        
+                        
+                        <br /> -
+                        
+                        
+                        <br /> -
+                        
+                        
+                        <br /> -
+                        
+                    </p>   
+                </td>
+            </tr>
+        </table> -->
+        <!-- <table class="spotlight">
+            <tr>
+                <td>
+                    <h5>Invoice Date</h5>
+                    <h6>10/04/2019</h6>
+                </td>
+                <td>
+                    <h5>Payment terms</h5>
+                    <h6>On Receipt</h6>
+                </td>
+                <td>
+                    <h5>Due Date</h5>
+                    <h6>__/__/____</h6>
+                </td>
+            </tr>
+        </table> -->
+
+        <table class="content">
+            <tbody><tr>
+                <th>Sl<br>No</th>
+                <th>Item Description</th>
+                <th>HSN</th>
+                <th>Qty</th>
+                <th>Unit</th>
+                <th>MRP</th>
+                <th>Tax%</th>
+                <th>Dis</th>
+                <th>Taxable<br>Value</th>
+                <th>CGST</th>
+                <th>SGST</th>
+                <th>Total</th>
+            </tr>
+            
+            <tr>
+                {% for a,b,c,d,e,f,g,h,i,j,k,l in zippy %}
+                <td> {{l}}</td>
+                <td>{{a|safe}}</td>
+                <td>{{b|safe}}</td>
+                <td>{{c|safe}}</td>
+                <td>{{d|safe}}</td>
+                <td>{{e|safe}}</td>
+                <td>{{f|safe}}</td>
+                <td>{{g|safe}}</td>
+                
+                    <td>{{h|safe}}</td>
+                    <td>{{i|safe}}</td>
+                    <td>{{j|safe}}</td>
+                
+                <td>{{k|safe}}</td>
+                
+            </tr>
+            {% endfor %}
+             
+            
+           <!--  <tr class='total_amount word'>
+                <td colspan=6 rowspan=2>Total Invoice Amount In Words</td>
+                <td style='text-align: left ;padding:4px 5px' colspan=4>Taxable Amount</td>
+                <td style='text-align: right ;padding:4px 5px' colspan=3>428.57</td>
+            </tr> -->
+          <!--   <tr class='total_amount'>
+                <td style='text-align: left ;padding:4px 5px' colspan=4>Subtotal</td>
+                <td style='text-align: right ;padding:4px 5px' colspan=3>450.00</td>
+            </tr> -->
+            <!-- <tr class='total_amount'>
+                <td colspan=6 rowspan=8 style="text-transform: capitalize;">four hundred and fifty point zero zero</td>
+                <td style='text-align: left ;padding:4px 5px' colspan=4>SGST</td>
+                <td style='text-align: right ;padding:4px 5px' colspan=3>10.715</td>
+            </tr>
+            <tr class='total_amount'>
+                <td style='text-align: left ;padding:4px 5px' colspan=4>CGST</td>
+                <td style='text-align: right ;padding:4px 5px' colspan=3>10.715</td>
+            </tr>
+            <tr class='total_amount'>
+                <td style='text-align: left ;padding:4px 5px' colspan=4>GST</td>
+                <td style='text-align: right ;padding:4px 5px' colspan=3>21.43</td>
+            </tr> -->
+            
+            <!-- <tr class='total_amount'>
+                
+            </tr>
+            <tr class='total_amount'>
+                
+            </tr>
+            <tr class='total_amount'>
+                 
+            </tr> -->
+            
+            <tr class="total_amount">
+                <td style="text-align: left ;padding:4px 5px;border-bottom: 1px solid " colspan="6" rowspan="2"><h4>You Have Saved : {{bill_final_disc}}</h4><br><h4>Special Discount : {{spc_disc}}</h4></td>
+               
+                <td style="text-align: left ;padding:4px 5px" colspan="4"><h4>Total</h4></td>
+                <td style="text-align: right ;padding:4px 5px" colspan="3"><h4>₹: {{bill_final_total}}</h4></td>
+            </tr>
+            <tr class="total_amount">
+                <td style="text-align: left ;padding:4px 5px" colspan="4"><h4>Payment Received</h4></td>
+                <td style="text-align: right ;padding:4px 5px" colspan="3"><h4>₹: {{bill_final_total}}</h4></td>
+            </tr>
+           <!--  <tr class='total_amount'>
+                <td style='text-align: left ;padding:4px 5px' colspan=6>Bank Branch IFSC :FDRL0001735 / Kallara</td>
+                <td colspan=7 rowspan=2 style="border-bottom: 1px solid #000;vertical-align: bottom;">Autorized Signatory</td>
+            </tr>
+            <tr class='total_amount'>
+                <td colspan=6><h4>Declaration</h4>
+                    <p style='padding:4px 5px;font-size: 8pt;'>Certified that all the particulars shown in the above tax invoice are corect in all respects and the goods on which the tax charges and collected are in accordance with the provisions of the GST Act-2017 and the rules made there under. It is also certified that my/our Registration under GST Act-2017 is not subject to any suspension/cancellation and it is valid as on the date of the bill.</p>
+                </td>
+            </tr> -->
+        </tbody></table>
+        <span style="font-size: 11px; margin-bottom: 0;">*You must bring bill in case of return product(s)</span>
+        <span style="font-size: 11px; margin-bottom: 0;class=" last"="">This is a computer generated invoice.</span>
+    </div>
+    
+   
+    <button class="btn btn-float bgm-red m-btn print-button" onclick="clicktoPrint()" <i="">PRINT</button>
+  
+    <input type="hidden" value="no" id="auto_redirect">
+    
+    <script type="text/javascript">
+        function clicktoPrint() {
+            window.print();
+        }
+        window.onload = function(){
+            var button = document.querySelector('.print-button');
+            button.click();
+        }
+        
+    </script>
+    <style>
+        body {
+            margin: 0;
+            font-family: TimesNewRoman,Ubuntu,"Courier New",Courier, Arial, Helvetica, sans-serif;
+            background: #fff;
+        }
+        .print_container {
+            width: 210mm;
+            margin: 0 auto;
+            background: #fff;
+            min-height: 100%;
+        }
+        div.print_container {
+            margin-top: 10px;
+        }
+        div.print_container:first-child{
+            margin-top: 0;
+        }
+        table {  
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 0;
+        }
+        table {
+            width: 100%;
+        }
+        h5, h6, h4 {
+            margin: 0;
+        }
+        .header.top {
+            background: #4E342E;
+            font-size: 13pt;
+            text-transform: uppercase;
+            color: #fff;
+            font-weight: bold;
+        }
+        .header.top td:nth-child(1){
+            text-align: left;
+        }
+        .header.top td {
+            text-align: center;
+            padding: 10px;
+        }
+        .header.top td.small {
+            width: 120px;
+        }
+        .header.top td:nth-child(3) {
+            border-left: 2px solid rgba(255,255,255,.5);
+            border-right: 2px solid rgba(255,255,255,.5);
+            width: 
+        }
+        .header.top td:last-child{
+            text-align: right;
+        }
+        .user_details {
+            table-layout: fixed;
+            width: 100%;
+        }
+        .user_details tr td {
+            border-bottom: 1px solid #0A0A3C;
+        }
+        .user_details tr td.logo {
+            width: 100px;
+            padding: 10px 0;
+        }
+        .user_details h2 {
+            font-size: 13pt;
+            margin: 0;
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+        .user_details h3 {
+            font-size: 12pt;
+            color: #9E9E9E;
+            font-weight: normal;
+            margin-top: 0;
+        }
+        .user_details p{
+            font-size: 11pt;
+        }
+        .user_details p strong {
+            font-family: Arial;
+            font-weight: 400;
+        }
+        .address tr td {
+            border-bottom: 1px solid #0A0A3C;
+        }
+        .address tr td.logo {
+            width: 100px;
+            padding: 5px 0;
+            margin-right: 20px;
+        }
+        .address h2 {
+            font-size: 13pt;
+            margin: 0;
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+        .address h3 {
+            font-size: 12pt;
+            color: #000;
+            font-weight: normal;
+            margin-top: 0;
+        }
+        .address .user_details td {
+            border-bottom: none;
+        }
+        .address .user_details td:first-child p {
+            max-width: 250px;
+        }
+        .address p {
+            font-size: 11pt;
+            margin: 5px 0;
+        }
+        .address td:nth-child(2) {
+            width: 300px;
+        }
+        .spotlight td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .spotlight td:first-child {
+            text-align: right;
+            padding-right: 20px;
+        }
+        .spotlight td:nth-child(2) {
+            width: 150px;
+            border-left: 2px solid #9E9E9E;
+            border-right: 2px solid #9E9E9E;
+            text-align: center;
+        }
+        .spotlight td:last-child {
+            text-align: left;
+            padding-left: 20px;
+        }
+        .spotlight {
+            table-layout: fixed;
+            border: 1px solid #000;
+            border-bottom: 0;
+            border-top: 0;
+        }
+        .spotlight td:first-child {
+            width: 38.25%;
+        }
+        .spotlight td:last-child {
+            width: 38.75%;
+        }
+        .spotlight h5 {
+            margin-bottom: 5px;
+        }
+        .spotlight h6 {
+            font-weight: normal;
+            font-size: 9pt;
+        }
+        
+        .content tr td, .content th{
+            border: 1px solid #f2eaea;
+            border-left: 1px solid #555;
+            border-right: 1px solid #555;
+            font-size: 9pt;
+            font-weight: normal;
+            text-align: center;
+            padding: 5px 0;
+            font-family: Arial;
+        }
+        .content tr#reamiaing_row td {
+            color:#fff;
+            border-bottom: 1px solid #f2eaea !important;
+        }
+        tr.total_amount.word td{
+            border-top: 2px solid #f2eaea !important;
+        }
+        .content tr:last-child td{
+            border-bottom: 1px solid #555;
+        }
+        .content th{
+            border-bottom: 1px solid #555;
+            background: #eae5e5;
+        }
+        .content .last, .content .last{
+            padding:0;
+            width: 250px;
+            margin: 0;
+        }
+        .content .text-top{
+            vertical-align: top;
+        }
+        .content .last td, .content .last td{
+            border-top:none;
+            border-bottom: none;
+        }
+        .content .last table, .content .last table{
+            table-layout: fixed;
+        }
+        .bottom {
+            margin-top: 20px;
+        }
+        .bottom tr:first-child table{
+            margin-bottom: 10px;
+        }
+        .bottom td:nth-child(2) {
+            width: 325px;
+        }
+        .bottom h4 {
+            font-weight: normal;
+            font-size: 11pt;
+            margin-bottom: 6px;            
+        }
+        .bottom h4.total{
+           font-weight: bold; 
+           font-size: 13pt;         
+        }
+        .bottom h5.total{
+           font-weight: bold; 
+           text-transform: capitalize;        
+        }
+        .bottom h5 {
+            font-weight: normal;
+            font-size: 10pt;
+            margin-bottom: 10px;
+        }
+        .bottom table.value {
+            table-layout: fixed;
+        }
+        .bottom table.value th {
+            font-size: 10pt;
+        }
+        .bottom table.value td, .bottom table.value th {
+            border: 1px solid #9E9E9E;
+            text-align: center;
+            padding : 5px 0;
+            font-weight: normal;
+        }
+        .bottom table.value td:nth-child(2) {
+            width: auto;
+        }
+        .footer {
+            table-layout: fixed;
+            border-top: 1px solid #9E9E9E;
+            border-bottom: 1px solid #9E9E9E;
+            margin-top: 20px;
+        }
+        .footer td {
+            width: 35%;
+        }
+        .footer td:nth-child(2) {
+            text-align: center;
+        }
+        .footer td:last-child {
+            width: 30%;
+        }
+        .footer h3{
+            margin-top: 20px;
+            font-weight: 500;
+            font-size: 12pt;
+        }
+        .footer .declaration h3 {
+            font-size: 11pt;
+            margin-top: 15px;
+        }
+        .footer .declaration p {
+            font-size: 8pt;
+            text-align: justify;
+        }
+        .footer p{
+            font-size: 7pt;
+        }
+        p.last {
+            text-align: center;
+            font-size: 8pt;
+            margin: 0;
+        }
+
+        .btn-float {
+            bottom: 30px;
+            right: 30px;
+            box-shadow: 2px 2px 2px 0px rgba(5, 40, 70, 0.34);
+            outline: none;
+            border: none;
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            line-height: 45px !important;
+            cursor: pointer;
+            right: 25px;
+            bottom: -23px;
+            z-index: 1;
+        }
+
+        .btn-float:not(.m-btn) {
+          position: absolute !important;
+        }
+
+        .m-btn {
+            bottom: 20px;
+            position: fixed !important;
+            right: 85px;
+            z-index: 1;
+        }
+        .bgm-red {
+          background-color: #f44336 !important;
+        }
+        .back{
+            top: 0;
+            position: fixed !important;
+            right: 85px;
+            z-index: 1;
+            padding:10px 20px;
+            background-color: #03A9F4;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .bill-table{
+            border-collapse: collapse;
+            font-size: 9pt;
+        }
+        .bill-table td,.bill-table th{
+            border: 1px solid #555; 
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        table.second td{
+            height: 20px;
+            border: 0;
+            border-right: 1px solid #555;
+            padding: 0;
+            vertical-align: middle !important;
+        }
+        table.second td:first-child{
+            width: 67.95%;
+            text-align: left;
+        }
+        .bill-table tr.first{
+            vertical-align: middle;
+        }
+        .bill-table tr.first tr td{
+            vertical-align: middle;
+            border-top: 0;
+        }
+        table.second tr {
+            border-bottom: 1px solid #555;
+        }
+        .bill-table tr td{
+            vertical-align: top;
+            text-align: center;
+        }
+        .details td{
+            border: none;
+            vertical-align: middle !important;
+            padding: 0 5px;
+        }
+        .details tr{
+            border-bottom: 1px solid #555;
+            height: 20px;
+        }
+        table tr.second td{
+            vertical-align: top;
+            padding: 5px;
+            padding-top: 0;
+            border-top: none;
+        }
+        table tr.second td p,table.amount td p{
+            font-size: 7pt;
+        }
+        table.second td:first-child{
+            padding-left: 5px;
+        }
+        table.second td:nth-child(2){
+            text-align: right;
+            padding-right: 5px;
+            border-right: 0;
+        }
+        table.amount tr{
+            height: 20px;
+            border-bottom: 1px solid #555 !important;
+        }
+        table.amount td{
+            width: 67.95%;
+            border: none;
+            vertical-align: middle;
+            padding-right: 5px;
+            padding-left: 5px;
+        }
+        @media print {
+          .btn,.btn-float, .bgm-red,.back-button,.back,.m-btn.print-button * {
+            visibility: hidden;
+          }
+        }
+
+
+    </style>
+
+<iframe frameborder="0" scrolling="no" style="background-color: transparent; border: 0px; display: none;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" input="" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:true,&quot;ss&quot;:true}" style="display: none;"></div></body></html>
+
+ <script src="{% static 'assets/vendor_components/jquery-3.3.1/jquery-3.3.1.js' %}"></script>

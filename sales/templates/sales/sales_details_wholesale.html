@@ -1,0 +1,157 @@
+{%extends 'dashboard/layout.html'%}
+{% load static %}
+
+{%block content%}
+
+
+
+
+<div class="content-wrapper">
+
+<div class="content-header">
+		<div class="d-flex align-items-center">
+			<div class="mr-auto w-p50">
+				<h3 class="page-title">Sales-Wholesale</h3>
+				<div class="d-inline-block align-items-center">
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+							<li class="breadcrumb-item active" aria-current="page">Control</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+			
+    </div>
+  </div>
+
+
+<section class="content">	
+			
+
+
+<div class="row">
+		  
+		<div class="col-12">
+         
+         <div class="box">
+            <div class="box-header with-border">
+            	<form class="form" method="post" action="{% url 'sales:delete_all_wholesale_sales'%}">
+					 {% csrf_token %}
+        <ul id="main-menu" class="sm sm-blue" style="display: inline-block;">
+		<li><a href="{% url 'sales:sales_details'%}" class="{% if activebar == 1 %}current{% endif %}"></i>Retail</a></li>
+		<li><a href="{% url 'sales:sales_details_wholesale'%}" class="{% if activebar == 2 %}current{% endif %}"></i>Wholesale</a></li>
+		</ul>
+              <span class="icon-input-btn"><span class="glyphicon glyphicon-trash"></span><input type="submit" class="btn btn-info btn-md" value="Delete" id="deletesal"></span>
+            </div>
+            <!-- /.box-header -->
+                  <div class="box-body">
+				<div class="table-responsive">
+				  <table id="example1" class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th> <input type="checkbox" id="ckbCheckAll" /><label for="ckbCheckAll"></label></th>
+							<input type="text" name="checked_pro" value="0" id="checked_pro" style="display: none;">
+							<th>ID</th>
+							<th>TIME</th>
+							<th>SUBTOTAL</th>
+							<th>SPECIAL<br>DISCOUNT</th>
+							<th>TOTAL</th>
+							<th>PAYMENT<br>RECIEVED</th>
+							<th>BALANCE</th>
+							<th>ACTION</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for x in sale_detail%}
+						<tr>
+							<td><input type="checkbox" id="checkbox_{{x.id}}" class="filled-in" name='check' value="{{x.id}}">
+								<label for="checkbox_{{x.id}}"></label>
+								</td>
+							<td>{{x.sale_invoice_ref}}</td>
+							<td>{{x.sales_date}}<br>{{x.sales_time}}</td>
+							<td>{{x.subtotal}}</td>
+							<td>{{x.sales_special_discount}}</td>
+							<td>{{x.sales_total}}</td>
+							<td>{{x.sales_total}}</td>
+							<td>{{x.sales_payment_balance}}</td>
+							<td style="white-space:nowrap;">
+							<span style="font-size:15px;><input type="button" class="btn btn-circle btn-info btn-sm mb-5" onclick="window.location.href='../sales/delete_wholesale_sales/{{x.id}}'">
+								<i class="mdi mdi-delete"style="font-size:20px"></i>
+							</span>&nbsp;
+							<span style="font-size:15px;><input type="button" class="btn btn-circle btn-info btn-sm mb-5" onclick="window.location.href='../sales/print_sales_wholesale/{{x.id}}'">
+								<i class="mdi mdi-printer"style="font-size:20px"></i></span>
+							<!-- {% if x.sale_return_status == "1" %}<span style="font-size:15px;opacity: 0.6;><input type="button" class="btn btn-circle btn-info btn-sm mb-5" id="disable_delete"">
+								<i class="mdi mdi-delete"style="font-size:20px"></i>
+							</span>&nbsp;{% endif %} -->
+							
+						</tr>
+						{% endfor %}
+						
+
+					</tbody>
+					<tfoot>
+						<tr style="display: none;">
+							<th></th>
+							<th>ID</th>
+							<th>TIME</th>
+							<th>SUBTOTAL</th>
+							<th>SPECIAL<br>DISCOUNT</th>
+							<th>TOTAL</th>
+							<th>PAYMENT<br>RECIEVED</th>
+							<th>BALANCE</th>
+							<th>ACTION</th>
+						</tr>
+					</tfoot>
+				</table>
+				</div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->      
+        
+        </div>
+
+
+</div>
+<script src="{% static 'assets/vendor_components/jquery-3.3.1/jquery-3.3.1.js' %}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#ckbCheckAll').on('click',function(){
+        if(this.checked){
+            $('.filled-in').each(function(){
+                this.checked = true;
+            });
+        }else{
+             $('.filled-in').each(function(){
+                this.checked = false;
+            });
+        }
+    });
+    
+    $('.filled-in').on('click',function(){
+        if($('.filled-in:checked').length == $('.filled-in').length){
+            $('#ckbCheckAll').prop('checked',true);
+        }else{
+            $('#ckbCheckAll').prop('checked',false);
+        }
+    });
+});
+
+ 	$(document).ready(function() {
+        $("#deletesal").click(function(){
+        	
+            var favorite = [];
+            $.each($("input[name='check']:checked"), function(){            
+                favorite.push($(this).val());
+                $('#checked_pro').val(favorite);
+                
+            });
+            
+        });
+    });
+
+
+</script>
+
+   {%endblock%}	
